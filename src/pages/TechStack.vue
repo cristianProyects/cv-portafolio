@@ -47,7 +47,8 @@ const toolsLogos = [
     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swagger/swagger-original-wordmark.svg",
     "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg",
     "https://websockets.readthedocs.io/en/10.2/_static/websockets.svg",
-    "https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/4/jwt-qmopau7qaog2hcyqa1r78m.png/jwt-nuo0qqa4imspf51wa8qqr.png?_a=DATAg1AAZAA0"
+    "https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/4/jwt-qmopau7qaog2hcyqa1r78m.png/jwt-nuo0qqa4imspf51wa8qqr.png?_a=DATAg1AAZAA0",
+    "https://1000logos.net/wp-content/uploads/2022/03/Tableau-Logo.png"
 ]
 </script>
 <template>
@@ -60,6 +61,8 @@ const toolsLogos = [
             <p class="subtitle">Desarrollador Full Stack que ve la tecnología como un camino de aprendizaje continuo. Me
                 motiva crear, mejorar y entender cómo la tecnología puede simplificar la vida de las personas.</p>
         </section>
+
+  
 
         <section class="tech-section language-section">
             <div class="title">
