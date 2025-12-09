@@ -1,16 +1,21 @@
+<script lang="ts" setup>
+const pages = [
+  { name: 'Inicio', link: '/' },
+  { name: 'Experiencia', link: '/experience' },
+  { name: 'Proyectos', link: '/projects' },
+  { name: 'Stack Tecnológico', link: '/techstack' },
+];
+</script>
 <template>
-  <!-- <div class="body"> -->
+  <v-main class="body">
+    <div class="cuadricula"></div>
+    <HeaderGlobal :pages="pages" />
 
-    <v-main class="body">
-      <div class="cuadricula"></div>
-      <router-view />
-    </v-main>
-  <!-- </div> -->
+    <router-view />
+  </v-main>
 </template>
 
-<script lang="ts" setup>
 //
-</script>
 <style>
 .body {
   font-family: 'Inter', 'Segoe UI', sans-serif;
