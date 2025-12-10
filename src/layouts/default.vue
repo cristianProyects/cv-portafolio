@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const pages = [
   { name: 'Inicio', link: '/' },
-  { name: 'Experiencia', link: '/experience' },
+  { name: 'Experiencia', link: '/experiences' },
   { name: 'Proyectos', link: '/projects' },
   { name: 'Stack Tecnológico', link: '/techstack' },
 ];

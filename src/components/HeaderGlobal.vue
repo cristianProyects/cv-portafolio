@@ -15,20 +15,40 @@ const props = withDefaults(defineProps<{
     pages: () => [],
 });
 </script>
+
 <template>
     <header class="header" id="header">
         <nav class="nav-container">
             <div class="logo">{{ props.title }}</div>
 
             <ul :class="`nav-menu ${active && 'active'}`" id="navMenu">
-                <RouterLink v-for="nav in props.pages" class="nav-link" :to="nav.link" :key="nav.name">{{nav.name}}</RouterLink>
+                <li v-for="nav in props.pages" :key="nav.name">
+                    <!-- Usamos el slot para obtener isActive -->
+                    <RouterLink style="text-decoration: none;" :to="nav.link" v-slot="{ isActive }">
+                        <span
+                            class="nav-link"
+                            :class="{ active: isActive }"
+                        >
+                            {{ nav.name }}
+                        </span>
+                    </RouterLink>
+                </li>
             </ul>
 
-            <v-btn class="mobile-menu-btn" id="mobileMenuBtn" @click="onHandleMenu"> <v-icon
-                    :icon="`${!active ? 'mdi-menu' : 'mdi-close'}`" size="large"></v-icon></v-btn>
+            <v-btn
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                @click="onHandleMenu"
+            >
+                <v-icon
+                    :icon="`${!active ? 'mdi-menu' : 'mdi-close'}`"
+                    size="large"
+                />
+            </v-btn>
         </nav>
     </header>
 </template>
+
 <style lang="scss" scoped>
 /* Header Navigation */
 .header {
@@ -75,6 +95,12 @@ const props = withDefaults(defineProps<{
     list-style: none;
 }
 
+/* para que el <li> no rompa el layout */
+.nav-menu li {
+    display: flex;
+    align-items: center;
+}
+
 .nav-link {
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
@@ -103,8 +129,13 @@ const props = withDefaults(defineProps<{
     width: 100%;
 }
 
+/* 🔥 Link activo */
 .nav-link.active {
     color: #ec4899;
+}
+
+.nav-link.active::after {
+    width: 100%;
 }
 
 .cta-button {
@@ -165,6 +196,5 @@ const props = withDefaults(defineProps<{
     .cta-button {
         display: none;
     }
-
 }
 </style>
