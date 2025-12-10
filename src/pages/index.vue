@@ -9,8 +9,8 @@ const informationHeroComponent = {
   description:
     'Especializado en crear experiencias digitales excepcionales. Con experiencia en Google y BBVA, transformo ideas en soluciones tecnológicas escalables.',
   actions: [
-    { label: 'Ver Proyectos', link: 'projects', type: 'primary' },
-    { label: 'Stack Tecnológico', link: 'techstack', type: 'secondary' },
+    { label: 'Ver Proyectos', link: 'projects', type: 'primary' as const },
+    { label: 'Stack Tecnológico', link: 'techstack', type: 'secondary' as const },
   ],
 };
 
