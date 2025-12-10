@@ -1,0 +1,14 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="40" fill="#0F172A"/>
+  
+  <!-- Símbolo izquierda </ -->
+  <path d="M80 130 L60 110 L80 90" stroke="#ef4444" stroke-width="14" stroke-linecap="round" fill="none"/>
+  
+  <!-- Símbolo derecha > -->
+  <path d="M176 90 L196 110 L176 130" stroke="#3b82f6" stroke-width="14" stroke-linecap="round" fill="none"/>
+
+  <!-- Iniciales CE -->
+  <text x="50%" y="63%" text-anchor="middle" dominant-baseline="middle"
+        font-family="Inter, sans-serif" font-weight="900" font-size="90"
+        fill="white">CE</text>
+</svg>
