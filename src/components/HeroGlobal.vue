@@ -235,4 +235,20 @@ const props = withDefaults(defineProps<{
         opacity: 0;
     }
 }
+/* Responsive */
+@media (max-width: 768px) {
+
+  .hero-section {
+    padding: 100px 20px 60px;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-btn {
+    justify-content: center;
+  }
+
+}
 </style>

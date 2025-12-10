@@ -5,10 +5,35 @@ const informationHeroComponent = {
   subtitle: 'Desarrollador Full Stack',
   description: 'Especializado en crear experiencias digitales excepcionales. Con experiencia en Google y BBVA, transformo ideas en soluciones tecnológicas escalables.',
   actions: [
-    { label: 'Ver Proyectos', link: '#proyectos', type: 'primary' },
-    { label: 'Stack Tecnológico', link: '#stack', type: 'secondary' },
+    { label: 'Ver Proyectos', link: 'projects', type: 'primary' },
+    { label: 'Stack Tecnológico', link: 'techstack', type: 'secondary' },
   ],
 };
+
+const quickLinks = [
+  {
+    title: 'Experiencias Destacadas',
+    description: 'Mi trayectoria en Google México y BBVA, trabajando en proyectos de alto impacto',
+    icon: 'mdi-rocket-launch',
+    link: 'experience',
+    color: 'red',
+  },
+  {
+    title: 'Proyectos',
+    description: 'Soluciones innovadoras que he desarrollado: e-commerce, dashboards, APIs y más',
+    icon: 'mdi-briefcase-variant',
+    link: 'projects',
+    color: 'brown',
+
+  },
+  {
+    title: 'Stack Tecnológico',
+    description: 'Tecnologías y herramientas que domino: Vue, React, Node.js, Cloud y más',
+    icon: 'mdi-laptop',
+    link: 'techstack',
+    color: 'grey',
+  },
+];
 
 </script>
 
@@ -25,27 +50,11 @@ const informationHeroComponent = {
       </div>
 
       <div class="links-grid">
-        <a href="#experiencia" class="link-card">
-          <div class="link-icon">🚀</div>
-          <h3 class="link-title">Experiencias Destacadas</h3>
+        <a :href="nav.link" class="link-card" v-for="nav in quickLinks" :key="nav.title">
+          <div class="link-icon"><v-icon :color="nav.color">{{ nav.icon }}</v-icon></div>
+          <h3 class="link-title">{{ nav.title }}</h3>
           <p class="link-description">
-            Mi trayectoria en Google México y BBVA, trabajando en proyectos de alto impacto
-          </p>
-        </a>
-
-        <a href="#proyectos" class="link-card">
-          <div class="link-icon">💼</div>
-          <h3 class="link-title">Proyectos</h3>
-          <p class="link-description">
-            Soluciones innovadoras que he desarrollado: e-commerce, dashboards, APIs y más
-          </p>
-        </a>
-
-        <a href="#stack" class="link-card">
-          <div class="link-icon">💻</div>
-          <h3 class="link-title">Stack Tecnológico</h3>
-          <p class="link-description">
-            Tecnologías y herramientas que domino: Vue, React, Node.js, Cloud y más
+            {{nav.description}}
           </p>
         </a>
       </div>
@@ -73,44 +82,6 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
-}
-
-
-
-
-
-/* Company Logos */
-.companies {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 60px;
-  flex-wrap: wrap;
-  padding: 40px 20px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-}
-
-.companies-label {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 600;
-}
-
-.company-logo-item {
-  height: 40px;
-  opacity: 0.7;
-  transition: all 0.3s ease;
-  filter: grayscale(100%) brightness(200%);
-}
-
-.company-logo-item:hover {
-  opacity: 1;
-  transform: scale(1.1);
-  filter: grayscale(0%) brightness(100%);
 }
 
 
@@ -193,7 +164,6 @@ body {
 .link-icon {
   font-size: 4rem;
   margin-bottom: 20px;
-  filter: drop-shadow(0 5px 15px rgba(236, 72, 153, 0.5));
   transition: transform 0.5s ease;
 }
 
@@ -218,73 +188,8 @@ body {
   z-index: 1;
 }
 
-/* Footer */
-.footer {
-  padding: 60px 40px 40px;
-  text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  position: relative;
-  z-index: 1;
-}
-
-.footer-content {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.social-link {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  font-size: 1.3rem;
-  transition: all 0.3s ease;
-}
-
-.social-link:hover {
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(59, 130, 246, 0.3));
-  border-color: rgba(236, 72, 153, 0.5);
-  color: #fff;
-  transform: translateY(-5px);
-}
-
-.footer-text {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1rem;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
-
-  .hero-section {
-    padding: 100px 20px 60px;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .hero-btn {
-    justify-content: center;
-  }
-
-  .companies {
-    gap: 30px;
-  }
 
   .company-logo-item {
     height: 30px;
