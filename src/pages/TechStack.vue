@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { onBeforeUnmount } from 'vue';
-
+import { onMounted } from 'vue';
+onMounted(() => {
+  window.scrollTo({ top: 0 });
+});
 const languageLogos = [
   'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg',
   'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg',
@@ -129,10 +131,6 @@ const vIntersect = {
   },
 };
 
-// Para que Vue limpie bien si hiciera falta (por si se usara en más sitios)
-onBeforeUnmount(() => {
-  // Nada especial aquí, la directiva se encarga con unmounted
-});
 </script>
 
 <template>

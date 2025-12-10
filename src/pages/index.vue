@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import { onMounted } from 'vue';
+onMounted(() => {
+  window.scrollTo({ top: 0 });
+});
 const informationHeroComponent = {
   title: ['Soy', 'Cristian Espiridion'],
   subtitle: 'Desarrollador Full Stack',
@@ -40,12 +44,8 @@ const quickLinks = [
 
 
 <template>
-  <HeroGlobal
-    :title="informationHeroComponent.title"
-    :subtitle="informationHeroComponent.subtitle"
-    :description="informationHeroComponent.description"
-    :actions="informationHeroComponent.actions"
-  />
+  <HeroGlobal :title="informationHeroComponent.title" :subtitle="informationHeroComponent.subtitle"
+    :description="informationHeroComponent.description" :actions="informationHeroComponent.actions" />
 
   <!-- Quick Links Section -->
   <section class="quick-links">
@@ -58,13 +58,8 @@ const quickLinks = [
       </div>
 
       <div class="links-grid">
-        <a
-          v-for="(nav, index) in quickLinks"
-          :key="nav.title"
-          :href="`/${nav.link}`"
-          class="link-card"
-          :style="{ '--delay': `${index * 0.08}s` }"
-        >
+        <a v-for="(nav, index) in quickLinks" :key="nav.title" :href="`/${nav.link}`" class="link-card"
+          :style="{ '--delay': `${index * 0.08}s` }">
           <div class="link-icon-wrapper">
             <div class="link-icon-ring"></div>
             <div class="link-icon">
@@ -95,16 +90,12 @@ const quickLinks = [
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(
-        circle at top left,
+      radial-gradient(circle at top left,
         rgba(236, 72, 153, 0.14),
-        transparent 55%
-      ),
-      radial-gradient(
-        circle at bottom right,
+        transparent 55%),
+      radial-gradient(circle at bottom right,
         rgba(59, 130, 246, 0.12),
-        transparent 55%
-      );
+        transparent 55%);
     opacity: 0.18;
     pointer-events: none;
     z-index: -1;
@@ -190,14 +181,12 @@ const quickLinks = [
     content: '';
     position: absolute;
     inset: -40%;
-    background: conic-gradient(
-      from 160deg,
-      rgba(236, 72, 153, 0.16),
-      transparent,
-      rgba(59, 130, 246, 0.18),
-      transparent,
-      rgba(236, 72, 153, 0.16)
-    );
+    background: conic-gradient(from 160deg,
+        rgba(236, 72, 153, 0.16),
+        transparent,
+        rgba(59, 130, 246, 0.18),
+        transparent,
+        rgba(236, 72, 153, 0.16));
     opacity: 0;
     transform: rotate(0deg);
     transition: opacity 0.5s ease, transform 0.8s ease;
@@ -228,11 +217,9 @@ const quickLinks = [
   width: 78px;
   height: 78px;
   border-radius: 999px;
-  background: radial-gradient(
-    circle,
-    rgba(236, 72, 153, 0.35),
-    transparent 60%
-  );
+  background: radial-gradient(circle,
+      rgba(236, 72, 153, 0.35),
+      transparent 60%);
   filter: blur(1px);
   opacity: 0.8;
 }
@@ -290,10 +277,12 @@ const quickLinks = [
     opacity: 0;
     transform: translateY(35px) scale(0.96);
   }
+
   60% {
     opacity: 1;
     transform: translateY(-4px) scale(1.01);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
