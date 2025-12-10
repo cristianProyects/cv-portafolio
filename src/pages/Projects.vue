@@ -150,6 +150,53 @@ const developWeb: Project[] = [
         ],
     },
 ];
+const developWebPersonal: Project[] = [
+    {
+        title: 'Eccommerce Colombia',
+        type: 'Ecommerce Web',
+        image: 'https://cdn.worldvectorlogo.com/logos/colombia.svg',
+        description: `Desarrollé el backend de un e-commerce de tecnología en colaboración con un desarrollador de Colombia. El proyecto fue implementado en JavaScript e incluyó la integración de una pasarela de pago utilizada en ese país. Mi responsabilidad principal fue la construcción de la API y la lógica del servidor, mientras que apoyé al desarrollador del frontend guiándolo en el uso de React y brindándole retroalimentación para mejorar la calidad de la interfaz. Este proyecto combinó desarrollo técnico con mentoría práctica.`,
+        techStack: [
+            'React.js',
+            'HTML',
+            'CSS',
+            'JS',
+            'MongoDB',
+            'PostgreSQL',
+            'GCP',
+            'Cloud Run',
+            'Docker',
+            'JWT',
+            'Express.js',
+            'Node.js',
+            'Postman',
+            'Swagger',
+            'Git',
+            'GitHub',
+        ],
+    },
+    {
+        title: 'Aplicativo para BARBERSHOP ',
+        type: 'Web App',
+        image: 'https://lh3.googleusercontent.com/p/AF1QipN-S3NPC79WFsbczvkiRwZsqvOrUpsoSoWilX8h=s680-w680-h510-rw',
+        description: `Desarrollé una aplicación tipo sistema de inventarios para una barbería, que permite administrar productos, gestionar citas y visualizar el trabajo realizado por cada barbero en distintas sucursales. Implementé tanto el backend como el frontend utilizando Next.js, aprovechando su arquitectura full-stack para construir la API, la lógica de negocio y la interfaz de usuario dentro del mismo proyecto. El sistema facilita la organización interna y mejora la experiencia del cliente al agendar servicios.`,
+        techStack: [
+            'Next.js',
+            'Material UI',
+            'HTML',
+            'CSS',
+            'JS',
+            'GCP',
+            'App Engine',
+            'Docker',
+            'PostgreSQL',
+            'JWT',
+            'NGINX',
+            'Git',
+            'GitHub',
+        ],
+    },
+];
 
 const noCodeProjects: Project[] = [
     {
@@ -241,7 +288,7 @@ const vIntersect = {
             <!-- Desarrollo Web -->
             <div class="title">
                 <div class="gradient-number">01</div>
-                <h2>Desarrollo Web</h2>
+                <h2>Desarrollo Web / Empresas</h2>
             </div>
 
             <div class="projects-grid">
@@ -271,10 +318,43 @@ const vIntersect = {
                     </div>
                 </div>
             </div>
+            <!-- Desarrollo Web Personal-->
+            <div class="title">
+                <div class="gradient-number">02</div>
+                <h2>Desarrollo Web / Personal</h2>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card" v-for="(project, index) in developWebPersonal" :key="project.title" v-intersect
+                    :style="{ '--delay': `${index * 0.12}s` }">
+                    <div class="project-media">
+                        <img :src="project.image" :alt="project.title" class="project-image" loading="lazy" />
+                        <div class="project-type-badge">
+                            <span>{{ project.type }}</span>
+                        </div>
+                    </div>
+
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">
+                                {{ project.title }}
+                            </h3>
+                        </div>
+                        <p class="project-description">
+                            {{ project.description }}
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag" v-for="skill in project.techStack" :key="skill">
+                                {{ skill }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- No Code / AppSheet -->
             <div class="title">
-                <div class="gradient-number">02</div>
+                <div class="gradient-number">03</div>
                 <h2>No Code / AppSheet</h2>
             </div>
 
