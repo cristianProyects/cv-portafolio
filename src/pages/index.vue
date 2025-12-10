@@ -65,27 +65,6 @@ const quickLinks = [
 </template>
 
 <style scoped lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-  background:
-    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.3), transparent 50%),
-    radial-gradient(circle at 40% 20%, rgba(59, 130, 246, 0.3), transparent 50%),
-    #0a0a0f;
-  color: #fff;
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
-}
-
-
-
 /* Quick Links Section */
 .quick-links {
   padding: 100px 40px;
