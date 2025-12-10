@@ -50,20 +50,15 @@ const toolsLogos = [
     "https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/4/jwt-qmopau7qaog2hcyqa1r78m.png/jwt-nuo0qqa4imspf51wa8qqr.png?_a=DATAg1AAZAA0",
     "https://1000logos.net/wp-content/uploads/2022/03/Tableau-Logo.png"
 ]
+
+const heroProps = {
+    title: ['Stack', 'Tecnológico'],
+    description: 'Desarrollador Full Stack que ve la tecnología como un camino de aprendizaje continuo. Me motiva crear, mejorar y entender cómo la tecnología puede simplificar la vida de las personas.',
+};
 </script>
 <template>
+    <HeroGlobal :title="heroProps.title" :description="heroProps.description" />
     <article class="tech-stack">
-        <section class="header">
-            <h1>
-                <span class="title-line">Stack</span>
-                <span class="title-line gradient-text">Tecnológico</span>
-            </h1>
-            <p class="subtitle">Desarrollador Full Stack que ve la tecnología como un camino de aprendizaje continuo. Me
-                motiva crear, mejorar y entender cómo la tecnología puede simplificar la vida de las personas.</p>
-        </section>
-
-  
-
         <section class="tech-section language-section">
             <div class="title">
                 <div class="gradient-number">01</div>
@@ -123,6 +118,67 @@ const toolsLogos = [
     padding: 0rem 6rem;
     position: relative;
     z-index: 1;
+
+    .tech-section {
+        margin-bottom: 5rem;
+
+        .title {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            padding: 30px 40px;
+
+            .gradient-number {
+                font-size: 4rem;
+                font-weight: 900;
+                background: linear-gradient(135deg, #ec4899, #3b82f6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                line-height: 1;
+            }
+
+            h2 {
+                font-size: 2.8rem;
+                font-weight: 800;
+                background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.6));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+        }
+
+        .logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+
+            img {
+                background: rgba(255, 255, 255, 0.02);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 30px;
+                padding: 40px 30px;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                width: 200px;
+                height: 200px;
+                object-fit: contain;
+                cursor: pointer;
+            }
+
+            img:hover {
+                transform: translateY(-15px) scale(1.02);
+                border-color: rgba(236, 72, 153, 0.5);
+                box-shadow:
+                    0 30px 60px rgba(236, 72, 153, 0.3),
+                    0 0 0 1px rgba(236, 72, 153, 0.2);
+            }
+
+        }
+    }
 }
 
 /* Responsive */
@@ -154,100 +210,5 @@ const toolsLogos = [
     }
 
 
-}
-
-.header {
-    height: 100dvh;
-    text-align: center;
-    align-content: center;
-
-    h1 {
-        font-size: clamp(3.5rem, 10vw, 7rem);
-        font-weight: 900;
-        margin-bottom: 20px;
-        line-height: 1.1;
-        letter-spacing: -3px;
-    }
-
-    .title-line {
-        display: block;
-    }
-
-    .gradient-text {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .subtitle {
-        font-size: 1.4rem;
-        color: rgba(255, 255, 255, 0.6);
-        max-width: 700px;
-        margin: 0 auto 50px;
-        line-height: 1.6;
-    }
-
-}
-
-.tech-section {
-    margin-bottom: 5rem;
-
-    .title {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 20px;
-        margin-bottom: 50px;
-        padding: 30px 40px;
-
-        .gradient-number {
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ec4899, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-        }
-
-        h2 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.6));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-    }
-
-    .logos {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2rem;
-
-        img {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 40px 30px;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 200px;
-            height: 200px;
-            object-fit: contain;
-            cursor: pointer;
-        }
-
-        img:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: rgba(236, 72, 153, 0.5);
-            box-shadow:
-                0 30px 60px rgba(236, 72, 153, 0.3),
-                0 0 0 1px rgba(236, 72, 153, 0.2);
-        }
-
-    }
 }
 </style>

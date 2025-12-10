@@ -2,7 +2,7 @@
 
 const props = withDefaults(defineProps<{
     title: Array<string>;
-    subtitle: string;
+    subtitle?: string;
     description: string;
     actions?: Array<{ label: string; link: string, type: 'primary' | 'secondary' }>;
     scrollIndicator?: boolean;
@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<{
                 {{ title[0] }} <span class="hero-name">{{ title[1] }}</span>
             </h1>
 
-            <p class="hero-role">{{ subtitle }}</p>
+            <p class="hero-role" v-if="subtitle">{{ subtitle }}</p>
 
             <p class="hero-description">
                 {{ description }}
