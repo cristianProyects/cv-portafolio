@@ -51,13 +51,13 @@ const toolsLogos = [
     "https://1000logos.net/wp-content/uploads/2022/03/Tableau-Logo.png"
 ]
 
-const heroProps = {
+const heroComponentProps = {
     title: ['Stack', 'Tecnológico'],
     description: 'Desarrollador Full Stack que ve la tecnología como un camino de aprendizaje continuo. Me motiva crear, mejorar y entender cómo la tecnología puede simplificar la vida de las personas.',
 };
 </script>
 <template>
-    <HeroGlobal :title="heroProps.title" :description="heroProps.description" />
+    <HeroGlobal :title="heroComponentProps.title" :description="heroComponentProps.description" />
     <article class="tech-stack">
         <section class="tech-section language-section">
             <div class="title">
