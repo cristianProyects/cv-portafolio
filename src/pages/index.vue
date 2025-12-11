@@ -24,7 +24,7 @@ onMounted(() => {
         </p>
       </div>
 
-      <div class="links-grid">
+      <div class="links-grid" >
         <a v-for="(nav, index) in quickLinks" :key="nav.title" :href="`/${nav.link}`" class="link-card"
           :style="{ '--delay': `${index * 0.08}s` }">
           <div class="link-icon-wrapper">

@@ -1,39 +1,13 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import useProjects from '@/composables/useProjects';
+import vIntersect from '@/directives/vIntersect';
 
 const { heroComponentProps, developWeb, developWebPersonal, noCodeProjects } = useProjects();
 onMounted(() => {
     window.scrollTo({ top: 0 });
 });
 
-
-/**
- * Directiva para animar cards solo al entrar en el viewport
- */
-type IntersectEl = HTMLElement & { _observer?: IntersectionObserver };
-
-const vIntersect = {
-    mounted(el: IntersectEl) {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry?.isIntersecting) {
-                    el.classList.add('is-visible');
-                    observer.unobserve(el);
-                }
-            },
-            {
-                threshold: 0.25,
-            },
-        );
-
-        el._observer = observer;
-        observer.observe(el);
-    },
-    unmounted(el: IntersectEl) {
-        el._observer?.disconnect();
-    },
-};
 
 </script>
 

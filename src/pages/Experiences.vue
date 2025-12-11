@@ -3,6 +3,7 @@ import { onMounted } from 'vue';
 import useConfetti from '@/composables/useConfetti';
 import useExperiences from '@/composables/useExperiences';
 
+
 const { heroComponentProps, experiences } = useExperiences();
 const { launchFullScreenConfetti } = useConfetti();
 
