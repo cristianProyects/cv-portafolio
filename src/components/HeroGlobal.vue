@@ -45,7 +45,7 @@ const props = withDefaults(defineProps<{
 <style lang="scss" scoped>
 /* Hero Section */
 .hero-section {
-    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
