@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<{
 
             <ul :class="`nav-menu ${active && 'active'}`" id="navMenu">
                 <li v-for="nav in props.pages" :key="nav.name">
-                    <RouterLink style="text-decoration: none;" :to="nav.link" v-slot="{ isActive }">
+                    <RouterLink @click="active=false" style="text-decoration: none;" :to="nav.link" v-slot="{ isActive }">
                         <span
                             class="nav-link"
                             :class="{ active: isActive }"

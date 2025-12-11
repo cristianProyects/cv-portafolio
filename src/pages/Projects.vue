@@ -322,6 +322,7 @@ onMounted(() => {
         line-height: 1.7;
         margin-bottom: 18px;
         font-size: 0.98rem;
+        text-align: justify;
     }
 
     .project-tech {
@@ -351,42 +352,94 @@ onMounted(() => {
     }
 }
 
-/* Responsive */
+/* ✅ SOLO CAMBIOS RESPONSIVE DESDE AQUÍ */
+
+/* Tablet grande / laptop pequeña */
 @media (max-width: 1024px) {
     .tech-stack {
         padding: 0 4rem;
     }
 
+    .tech-section .title {
+        margin-bottom: 40px;
+        padding: 24px 28px;
+    }
+
+    .tech-section .title .gradient-number {
+        font-size: 3.4rem;
+    }
+
+    .tech-section .title h2 {
+        font-size: 2.3rem;
+    }
+
     .projects-grid {
         grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     }
+
+    .project-media {
+        height: 230px;
+    }
 }
 
+/* Tablet / móvil horizontal */
 @media (max-width: 768px) {
     .tech-stack {
         padding: 0 2rem;
     }
 
+    .tech-section .title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 20px 18px;
+        margin-bottom: 35px;
+    }
+
+    .tech-section .title h2 {
+        font-size: 2rem;
+    }
+
     .projects-grid {
         grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .project-content {
+        padding: 20px 20px 22px;
+        text-align: left; /* más cómodo para leer en móvil */
+    }
+
+    .project-content .project-description {
+        font-size: 0.95rem;
     }
 }
 
+/* Móvil pequeño */
 @media (max-width: 480px) {
     .tech-stack {
         padding: 0 1rem;
     }
 
-    .project-content {
-        padding: 20px 18px 22px;
+    .project-media {
+        height: 200px;
     }
 
-    .project-media {
-        height: 210px;
+    .project-content {
+        padding: 18px 16px 20px;
     }
 
     .project-content .project-header .project-title {
         font-size: 1.5rem;
+    }
+
+    .project-content .project-tech {
+        gap: 8px;
+    }
+
+    .project-content .project-tech .tech-tag {
+        font-size: 0.78rem;
+        padding: 4px 10px;
     }
 }
 </style>

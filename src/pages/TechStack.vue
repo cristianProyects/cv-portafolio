@@ -12,17 +12,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <HeroGlobal
-    :title="heroComponentProps.title"
-    :description="heroComponentProps.description"
-  />
+  <HeroGlobal :title="heroComponentProps.title" :description="heroComponentProps.description" />
 
   <article class="tech-stack">
-    <section
-      v-for="section in sections"
-      :key="section.id"
-      class="tech-section"
-    >
+    <section v-for="section in sections" :key="section.id" class="tech-section">
       <div class="title">
         <div class="gradient-number">
           {{ section.number }}
@@ -31,18 +24,9 @@ onMounted(() => {
       </div>
 
       <div class="logos">
-        <div
-          v-for="(logo, index) in section.logos"
-          :key="logo"
-          class="logo-card"
-          v-intersect
-          :style="{ '--delay': `${index * 0.06}s` }"
-        >
-          <img
-            :src="logo"
-            :alt="`${section.title} - logo`"
-            loading="lazy"
-          />
+        <div v-for="(logo, index) in section.logos" :key="logo" class="logo-card" v-intersect
+          :style="{ '--delay': `${index * 0.06}s` }">
+          <img :src="logo" :alt="`${section.title} - logo`" loading="lazy" />
         </div>
       </div>
     </section>
@@ -82,11 +66,9 @@ onMounted(() => {
     h2 {
       font-size: 2.4rem;
       font-weight: 800;
-      background: linear-gradient(
-        135deg,
-        #ffffff,
-        rgba(255, 255, 255, 0.7)
-      );
+      background: linear-gradient(135deg,
+          #ffffff,
+          rgba(255, 255, 255, 0.7));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -109,16 +91,12 @@ onMounted(() => {
   height: 200px;
   border-radius: 28px;
   padding: 28px 24px;
-  background: radial-gradient(
-      circle at top left,
+  background: radial-gradient(circle at top left,
       rgba(236, 72, 153, 0.09),
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at bottom right,
+      transparent 55%),
+    radial-gradient(circle at bottom right,
       rgba(59, 130, 246, 0.08),
-      transparent 55%
-    ),
+      transparent 55%),
     rgba(15, 23, 42, 0.85);
   border: 1px solid rgba(148, 163, 184, 0.5);
   backdrop-filter: blur(18px);
@@ -137,14 +115,12 @@ onMounted(() => {
     content: '';
     position: absolute;
     inset: -40%;
-    background: conic-gradient(
-      from 140deg,
-      rgba(236, 72, 153, 0.1),
-      transparent,
-      rgba(59, 130, 246, 0.18),
-      transparent,
-      rgba(236, 72, 153, 0.1)
-    );
+    background: conic-gradient(from 140deg,
+        rgba(236, 72, 153, 0.1),
+        transparent,
+        rgba(59, 130, 246, 0.18),
+        transparent,
+        rgba(236, 72, 153, 0.1));
     opacity: 0;
     transform: rotate(0deg);
     transition: opacity 0.5s ease, transform 0.8s ease;
@@ -179,8 +155,7 @@ onMounted(() => {
 
     img {
       transform: scale(1.06);
-      filter: drop-shadow(0 16px 35px rgba(15, 23, 42, 0.95))
-        saturate(1.05);
+      filter: drop-shadow(0 16px 35px rgba(15, 23, 42, 0.95)) saturate(1.05);
     }
   }
 }
@@ -191,10 +166,12 @@ onMounted(() => {
     opacity: 0;
     transform: translateY(18px) scale(0.96);
   }
+
   70% {
     opacity: 1;
     transform: translateY(-3px) scale(1.02);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -250,9 +227,13 @@ onMounted(() => {
     margin-bottom: 28px;
   }
 
+  .logos {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)) !important;
+  }
+
   .logo-card {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     padding: 18px 14px;
   }
 }

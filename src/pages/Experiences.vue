@@ -330,6 +330,7 @@ onMounted(() => {
     color: rgba(255, 255, 255, 0.78);
     line-height: 1.8;
     font-size: 1.02rem;
+    text-align: justify;
 
     strong {
         color: #ec4899;
@@ -398,40 +399,79 @@ onMounted(() => {
     }
 }
 
-/* Responsive */
+/* ✅ Responsive: compactar en móvil y evitar que se vea demasiado alargado */
+
+/* Tablet / laptop pequeña */
 @media (max-width: 1024px) {
     .experiences-section {
         padding: 0 3rem 60px;
+        margin: 60px 0;
     }
 
     .experience-card,
     .experience-card--reverse {
         flex-direction: column;
+        align-items: flex-start;
+        padding: 22px 22px;
+        gap: 20px;
     }
 
     .experience-card__media {
-        flex-basis: auto;
-        min-height: 240px;
-        max-height: 380px;
-    }
-}
-
-@media (max-width: 640px) {
-    .experiences-section {
-        padding: 0 1.5rem 50px;
+        flex: 0 0 auto;
+        min-height: 220px;
+        max-height: 280px;
     }
 
-    .experience-card {
-        padding: 20px 18px;
-        gap: 18px;
+    .experience-card__content {
+        gap: 10px;
     }
 
     .experience-card__title {
-        font-size: 1.6rem;
+        font-size: 1.7rem;
+    }
+
+    .experience-card__description {
+        font-size: 0.96rem;
+        line-height: 1.6;
+    }
+
+    /* Dos columnas de highlights para reducir altura */
+    .experience-card__highlights {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .highlight-item {
+        padding: 8px 10px;
+    }
+
+    .highlight-item__text {
+        font-size: 0.9rem;
+    }
+}
+
+/* Móvil */
+@media (max-width: 640px) {
+    .experiences-section {
+        padding: 0 1.5rem 50px;
+        margin: 50px 0;
+    }
+
+    .experience-card {
+        padding: 18px 16px;
+        gap: 16px;
+        border-radius: 22px;
+    }
+
+    .experience-card__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 
     .experience-card__media {
-        min-height: 220px;
+        min-height: 180px;
+        max-height: 220px;
     }
 
     .experience-card__media-tag {
@@ -439,6 +479,51 @@ onMounted(() => {
         bottom: 12px;
         padding: 5px 11px;
         font-size: 0.8rem;
+    }
+
+    .experience-card__title {
+        font-size: 1.45rem;
+    }
+
+    .experience-card__description {
+        font-size: 0.92rem;
+        line-height: 1.55;
+        margin-bottom: 6px;
+    }
+
+    .experience-card__highlights {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .highlight-item {
+        padding: 7px 8px;
+        gap: 8px;
+    }
+
+    .highlight-item__icon {
+        width: 28px;
+        height: 28px;
+        font-size: 1.1rem;
+    }
+
+    .highlight-item__text {
+        font-size: 0.85rem;
+    }
+}
+
+/* Móvil muy pequeño (opcional, por si se siente apretado) */
+@media (max-width: 400px) {
+    .experiences-section {
+        padding: 0 1rem 40px;
+    }
+
+    .experience-card {
+        padding: 16px 14px;
+    }
+
+    .experience-card__highlights {
+        grid-template-columns: 1fr; /* aquí ya priorizamos espacio, no tanto altura */
     }
 }
 </style>
