@@ -1,0 +1,122 @@
+/* Estilos globales: Tailwind v4 + tokens del estilo "Blanco vibrante", el mismo sistema de la
+   landing de la agencia de tours, adaptado al CV. Fondo blanco, azul de marca (#0b5cad, el azul del
+   CV impreso) para botones y textos de acento, azul cielo para detalles decorativos y un naranja
+   cálido solo como chispa. Modo claro siempre (decisión del usuario, 2026-11-20). */
+@import 'tailwindcss';
+
+@theme {
+  /* Marca */
+  /* Azul del CV: botones, enlaces y textos de acento (AA sobre blanco y con texto blanco). */
+  --color-brand: #0b5cad;
+  /* Marino: profundidad, hover de botones y la franja de contacto. */
+  --color-brand-navy: #0a2a4f;
+  /* Azul cielo: decorativo (formas, líneas, íconos grandes). No cumple contraste como texto. */
+  --color-brand-sky: #38b6f2;
+  /* Naranja cálido: chispa decorativa (subrayado, punto de "Actual"). */
+  --color-spark: #ff7a3d;
+  /* Naranja oscuro: cuando el acento cálido es texto (AA sobre blanco). */
+  --color-spark-ink: #b8410f;
+
+  /* Texto */
+  --color-ink: #141823;
+  --color-ink-muted: #4c5a69;
+
+  /* Superficies */
+  --color-surface: #ffffff;
+  --color-surface-soft: #f5f9fd;
+  --color-surface-tint: #e6f1fb;
+  --color-border: #d9e5ef;
+  --color-accent-soft: #eaf5fd;
+
+  /* Tipografía: Poppins, la misma de la landing de tours, servida desde el propio sitio */
+  --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  /* Forma y profundidad */
+  --radius-card: 1.5rem;
+  --radius-control: 0.875rem;
+  --shadow-card: 0 10px 30px -8px rgb(10 42 79 / 0.16);
+  --shadow-lift: 0 22px 44px -14px rgb(10 42 79 / 0.28);
+
+  /* Movimiento */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    /* El encabezado es fijo: al saltar a una sección nada queda escondido debajo. */
+    scroll-padding-top: 5rem;
+    scroll-behavior: smooth;
+    color: var(--color-ink);
+    background-color: var(--color-surface);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    color-scheme: light;
+    scrollbar-color: color-mix(in srgb, var(--color-brand) 45%, white) var(--color-surface-soft);
+    caret-color: var(--color-brand);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-brand-sky) 35%, white);
+    color: var(--color-brand-navy);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Aparición al hacer scroll: el contenido es visible por defecto; solo cuando JS confirma que
+     hay movimiento permitido (html.can-reveal) se oculta y aparece al entrar en pantalla. */
+  .can-reveal [data-reveal] {
+    opacity: 0;
+    translate: 0 1.5rem;
+    filter: blur(6px);
+    transition:
+      opacity 0.9s var(--ease-out-expo),
+      translate 0.9s var(--ease-out-expo),
+      filter 0.9s var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .can-reveal [data-reveal].is-revealed {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+  }
+
+  /* Número o fecha en columnas: cifras del mismo ancho. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}

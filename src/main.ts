@@ -1,23 +1,20 @@
-/**
- * main.ts
- *
- * Bootstraps Vuetify and other plugins then mounts the App`
- */
-
-// Plugins
-import { registerPlugins } from '@/plugins'
-
-// Components
-import App from './App.vue'
-
-// Composables
+// Arranque: fuente Poppins servida desde el propio sitio, estilos, idioma y montaje.
+import '@fontsource/poppins/latin-400.css'
+import '@fontsource/poppins/latin-500.css'
+import '@fontsource/poppins/latin-600.css'
+import '@fontsource/poppins/latin-700.css'
+import '@fontsource/poppins/latin-800.css'
+import './shared/styles/main.css'
 import { createApp } from 'vue'
+import App from './app/App.vue'
+import { initLocale } from './shared/i18n/locale'
+import { mapLegacyHash } from './shared/utils/legacy-hash'
 
-// Styles
-import 'unfonts.css'
+// Enlaces del portafolio anterior (#/projects…) → sección equivalente.
+const legacy = mapLegacyHash(window.location.hash)
+if (legacy) history.replaceState(null, '', legacy)
 
-const app = createApp(App)
+initLocale()
+createApp(App).mount('#app')
 
-registerPlugins(app)
-
-app.mount('#app')
+if (legacy) requestAnimationFrame(() => document.querySelector(legacy)?.scrollIntoView())
