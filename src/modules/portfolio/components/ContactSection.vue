@@ -72,7 +72,7 @@ const CHANNELS = [
           aria-hidden="true"
         />
         <div
-          class="pointer-events-none absolute right-1/3 -bottom-20 -z-10 size-64 rounded-full bg-spark/35 blur-3xl"
+          class="pointer-events-none absolute right-1/3 -bottom-20 -z-10 size-64 rounded-full bg-brand-sky/40 blur-3xl"
           aria-hidden="true"
         />
 
@@ -196,13 +196,15 @@ const CHANNELS = [
               <a
                 :href="t(PROFILE.cv).href"
                 :download="t(PROFILE.cv).file"
-                class="group flex items-center gap-4 rounded-3xl bg-spark p-4 pr-5 text-white shadow-lg shadow-spark/30 transition-[translate,background-color] duration-200 hover:-translate-y-0.5 hover:bg-spark-ink"
+                class="group flex items-center gap-4 rounded-3xl bg-white p-4 pr-5 text-ink shadow-lg shadow-black/10 transition-[translate,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-xl"
               >
-                <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-white/20">
+                <span
+                  class="grid size-12 shrink-0 place-items-center rounded-2xl bg-accent-soft text-brand"
+                >
                   <AppIcon :path="mdiDownload" :size="26" />
                 </span>
                 <span class="min-w-0 flex-1">
-                  <span class="block text-xs font-bold tracking-wide text-white/80 uppercase">
+                  <span class="block text-xs font-bold tracking-wide text-ink-muted uppercase">
                     PDF
                   </span>
                   <span class="block font-bold">{{ t(UI.downloadCv) }}</span>
@@ -210,7 +212,7 @@ const CHANNELS = [
                 <AppIcon
                   :path="mdiArrowTopRight"
                   :size="22"
-                  class="rotate-90 transition-transform group-hover:translate-y-0.5"
+                  class="rotate-90 text-brand transition-transform group-hover:translate-y-0.5"
                 />
               </a>
             </li>
