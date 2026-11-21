@@ -65,7 +65,7 @@ function hideBrokenLogo(event: Event) {
         :intro="t(UI.stackHint)"
       />
 
-      <div class="grid gap-6 md:grid-cols-2">
+      <div class="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-[repeat(2,minmax(0,1fr))]">
         <article
           v-for="group in STACK_GROUPS"
           :key="group.id"
@@ -145,8 +145,10 @@ function hideBrokenLogo(event: Event) {
               </button>
             </div>
 
-            <div class="mt-4 grid gap-6 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-              <div v-if="detail.jobs.length">
+            <div
+              class="mt-4 grid grid-cols-[minmax(0,1fr)] gap-6 sm:grid-cols-2 md:grid-cols-[minmax(0,1fr)] lg:grid-cols-2"
+            >
+              <div v-if="detail.jobs.length" class="min-w-0">
                 <h4 class="text-xs font-bold tracking-wide text-ink-muted uppercase">
                   {{ t({ es: 'En empresas', en: 'At companies' }) }}
                 </h4>
@@ -161,7 +163,7 @@ function hideBrokenLogo(event: Event) {
                 </ul>
               </div>
 
-              <div v-if="detail.projects.length">
+              <div v-if="detail.projects.length" class="min-w-0">
                 <h4 class="text-xs font-bold tracking-wide text-ink-muted uppercase">
                   {{ t({ es: 'En proyectos', en: 'In projects' }) }}
                 </h4>
@@ -173,7 +175,7 @@ function hideBrokenLogo(event: Event) {
                       @click.prevent="emit('show-project', project.id)"
                     >
                       <CompanyMark :employer="project.employer" size="xs" />
-                      <span class="min-w-0 flex-1 truncate">
+                      <span class="min-w-0 flex-1 leading-snug">
                         {{ resolveTitle(project.title, locale) }}
                       </span>
                       <AppIcon

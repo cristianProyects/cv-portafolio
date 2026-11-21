@@ -64,7 +64,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
         <span class="sr-only">{{ PROFILE.name }}, {{ t(UI.home) }}</span>
       </a>
 
-      <div class="flex items-center gap-2 md:order-last">
+      <div class="flex items-center gap-2 lg:order-last">
         <button
           type="button"
           class="inline-flex h-10 items-center rounded-full bg-surface-soft p-1 text-xs font-bold ring-1 ring-border"
@@ -90,7 +90,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
         <button
           ref="toggleEl"
           type="button"
-          class="grid size-10 place-items-center rounded-[var(--radius-control)] text-ink md:hidden"
+          class="grid size-10 place-items-center rounded-[var(--radius-control)] text-ink lg:hidden"
           aria-controls="site-menu"
           :aria-expanded="isOpen ? 'true' : 'false'"
           :aria-label="isOpen ? t(UI.menuClose) : t(UI.menuOpen)"
@@ -105,21 +105,21 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
         id="site-menu"
         :aria-label="locale === 'es' ? 'Secciones' : 'Sections'"
         :class="isOpen ? 'flex' : 'hidden'"
-        class="absolute inset-x-0 top-full flex-col gap-1 border-b border-border bg-white px-5 pt-2 pb-5 md:static md:ml-auto md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0"
+        class="absolute inset-x-0 top-full flex-col gap-1 border-b border-border bg-white px-5 pt-2 pb-5 lg:static lg:ml-auto lg:flex lg:flex-row lg:items-center lg:gap-1 lg:border-0 lg:bg-transparent lg:p-0"
         @keydown.esc="close(true)"
       >
         <a
           v-for="link in LINKS"
           :key="link.id"
           :href="`#${link.id}`"
-          class="relative rounded-xl px-3 py-3 font-medium transition-colors md:py-2"
+          class="relative rounded-xl px-3 py-3 font-medium transition-colors lg:py-2"
           :class="active === link.id ? 'text-brand' : 'text-ink-muted hover:text-ink'"
           :aria-current="active === link.id ? 'true' : undefined"
           @click="close()"
         >
           {{ t(link.label) }}
           <span
-            class="absolute inset-x-3 -bottom-0.5 hidden h-0.5 origin-left rounded-full bg-brand transition-transform duration-300 md:block"
+            class="absolute inset-x-3 -bottom-0.5 hidden h-0.5 origin-left rounded-full bg-brand transition-transform duration-300 lg:block"
             :class="active === link.id ? 'scale-x-100' : 'scale-x-0'"
             aria-hidden="true"
           />
@@ -127,7 +127,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
         <a
           :href="t(PROFILE.cv).href"
           :download="t(PROFILE.cv).file"
-          class="mt-2 inline-flex items-center justify-center gap-2 rounded-[var(--radius-control)] bg-brand px-4 py-3 font-semibold text-white md:hidden"
+          class="mt-2 inline-flex items-center justify-center gap-2 rounded-[var(--radius-control)] bg-brand px-4 py-3 font-semibold text-white lg:hidden"
           @click="close()"
         >
           <AppIcon :path="mdiDownload" :size="20" />

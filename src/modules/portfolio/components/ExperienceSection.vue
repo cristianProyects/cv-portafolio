@@ -107,7 +107,7 @@ const projectsOf = (jobId: string) => PROJECTS.filter((p) => p.employer === jobI
                         "
                       />
                       <span class="min-w-0 flex-1">
-                        <span class="block truncate text-sm font-bold">
+                        <span class="line-clamp-2 block text-sm leading-snug font-bold">
                           {{ resolveTitle(project.title, locale) }}
                         </span>
                         <span v-if="project.client" class="block text-xs text-ink-muted">

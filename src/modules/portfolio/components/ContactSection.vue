@@ -59,7 +59,7 @@ const CHANNELS = [
     <div class="mx-auto max-w-6xl px-5">
       <div
         data-reveal
-        class="relative isolate overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-navy via-brand to-brand-sky p-6 text-white shadow-[var(--shadow-lift)] sm:p-10 md:p-14"
+        class="relative isolate overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-navy via-brand to-brand-sky p-4 text-white shadow-[var(--shadow-lift)] sm:p-10 md:p-14"
       >
         <!-- Decoración: retícula de puntos, anillos y brillo cálido -->
         <div class="contact-dots pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
@@ -93,11 +93,11 @@ const CHANNELS = [
 
             <h2
               id="contact-title"
-              class="mt-6 flex items-center gap-4 text-5xl leading-none font-extrabold tracking-tight md:text-7xl"
+              class="mt-6 flex items-center gap-3 text-[2.5rem] leading-none font-extrabold tracking-tight sm:gap-4 sm:text-5xl md:text-7xl"
             >
               {{ t(CONTACT.title) }}
               <span
-                class="contact-plane grid size-14 shrink-0 place-items-center rounded-2xl bg-white text-brand shadow-lg shadow-black/15 md:size-16"
+                class="contact-plane grid size-11 shrink-0 place-items-center rounded-2xl bg-white text-brand shadow-lg shadow-black/15 sm:size-14 md:size-16"
                 aria-hidden="true"
               >
                 <AppIcon :path="mdiSend" :size="30" />
@@ -120,7 +120,7 @@ const CHANNELS = [
           <ul class="space-y-3">
             <!-- Correo: principal, con copiar -->
             <li
-              class="rounded-3xl bg-white p-5 text-ink shadow-xl shadow-black/15 ring-1 ring-white/60"
+              class="rounded-3xl bg-white p-4 text-ink sm:p-5 shadow-xl shadow-black/15 ring-1 ring-white/60"
             >
               <div class="flex items-center gap-4">
                 <span
@@ -135,7 +135,7 @@ const CHANNELS = [
                   <p class="font-bold break-all sm:truncate">{{ PROFILE.email }}</p>
                 </div>
               </div>
-              <div class="mt-4 grid grid-cols-2 gap-2">
+              <div class="mt-4 grid grid-cols-1 gap-2 min-[360px]:grid-cols-2">
                 <a
                   :href="`mailto:${PROFILE.email}`"
                   class="inline-flex min-h-11 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-brand px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-navy"
@@ -170,7 +170,7 @@ const CHANNELS = [
                 :href="channel.href"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group flex items-center gap-4 rounded-3xl bg-white p-4 pr-5 text-ink shadow-lg shadow-black/10 transition-[translate,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-xl"
+                class="group flex items-center gap-3 rounded-3xl bg-white p-3.5 pr-4 text-ink sm:gap-4 sm:p-4 sm:pr-5 shadow-lg shadow-black/10 transition-[translate,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-xl"
               >
                 <span
                   class="grid size-12 shrink-0 place-items-center rounded-2xl"
@@ -182,7 +182,7 @@ const CHANNELS = [
                   <span class="block text-xs font-bold tracking-wide text-ink-muted uppercase">
                     {{ t(channel.label) }}
                   </span>
-                  <span class="block truncate font-bold">{{ t(channel.value) }}</span>
+                  <span class="block font-bold">{{ t(channel.value) }}</span>
                 </span>
                 <AppIcon
                   :path="mdiArrowTopRight"
@@ -196,7 +196,7 @@ const CHANNELS = [
               <a
                 :href="t(PROFILE.cv).href"
                 :download="t(PROFILE.cv).file"
-                class="group flex items-center gap-4 rounded-3xl bg-white p-4 pr-5 text-ink shadow-lg shadow-black/10 transition-[translate,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-xl"
+                class="group flex items-center gap-3 rounded-3xl bg-white p-3.5 pr-4 text-ink sm:gap-4 sm:p-4 sm:pr-5 shadow-lg shadow-black/10 transition-[translate,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-xl"
               >
                 <span
                   class="grid size-12 shrink-0 place-items-center rounded-2xl bg-accent-soft text-brand"
