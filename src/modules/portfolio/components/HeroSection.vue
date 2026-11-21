@@ -7,7 +7,6 @@ import {
   mdiClockOutline,
   mdiDownload,
   mdiEmailOutline,
-  mdiGoogle,
   mdiMapMarkerOutline,
 } from '@mdi/js'
 import googlePhoto from '@/assets/google_yo_yo.jpg'
@@ -16,15 +15,10 @@ import { useLocale } from '@/shared/i18n/locale'
 import AppButton from '@/shared/ui/AppButton.vue'
 import AppIcon from '@/shared/ui/AppIcon.vue'
 import { HERO, PROFILE, UI } from '../content/profile.content'
-import { techLogoUrl } from '../content/tech.content'
 
 const { t } = useLocale()
 
-const FACT_ICONS = { clock: mdiClockOutline, bank: mdiBankOutline, google: mdiGoogle } as const
-const STACK_PREVIEW = (['Vue.js', 'React', 'Node.js', 'Google Cloud'] as const).map((name) => ({
-  name,
-  logo: techLogoUrl(name),
-}))
+const FACT_ICONS = { clock: mdiClockOutline, bank: mdiBankOutline } as const
 </script>
 
 <template>
@@ -140,26 +134,12 @@ const STACK_PREVIEW = (['Vue.js', 'React', 'Node.js', 'Google Cloud'] as const).
             <p class="text-xs font-medium text-ink-muted">{{ t(HERO.nowLabel) }}</p>
             <p class="flex items-center gap-2 font-bold text-ink">
               <span class="relative flex size-2.5" aria-hidden="true">
-                <span class="absolute inset-0 animate-ping rounded-full bg-spark opacity-60" />
-                <span class="relative size-2.5 rounded-full bg-spark" />
+                <span class="absolute inset-0 animate-ping rounded-full bg-brand-sky opacity-70" />
+                <span class="relative size-2.5 rounded-full bg-brand-sky" />
               </span>
               {{ HERO.nowValue }}
             </p>
           </div>
-        </div>
-
-        <!-- Pastilla de stack -->
-        <div
-          class="hero-chip-stack absolute top-10 -right-3 flex items-center gap-1.5 rounded-2xl bg-white p-2 shadow-[var(--shadow-lift)] ring-1 ring-border sm:-right-6"
-          aria-hidden="true"
-        >
-          <span
-            v-for="item in STACK_PREVIEW"
-            :key="item.name"
-            class="grid size-10 place-items-center rounded-xl bg-surface-soft"
-          >
-            <img v-if="item.logo" :src="item.logo" alt="" width="24" height="24" class="size-6" />
-          </span>
         </div>
       </div>
     </div>
@@ -213,16 +193,10 @@ const STACK_PREVIEW = (['Vue.js', 'React', 'Node.js', 'Google Cloud'] as const).
   .hero-chip-now {
     animation: chip 0.9s 0.6s var(--ease-out-expo) both;
   }
-  .hero-chip-stack {
-    animation: chip 0.9s 0.75s var(--ease-out-expo) both;
-  }
 }
 
 .hero-plate {
   rotate: -3deg;
-}
-.hero-photo {
-  rotate: 2deg;
 }
 
 @keyframes rise {
@@ -247,7 +221,6 @@ const STACK_PREVIEW = (['Vue.js', 'React', 'Node.js', 'Google Cloud'] as const).
 @keyframes photo {
   from {
     opacity: 0;
-    rotate: -3deg;
     translate: 0 30px;
   }
 }

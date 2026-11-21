@@ -13,6 +13,7 @@ const { t, locale, toggleLocale } = useLocale()
 const LINKS = [
   { id: 'experiencia', label: UI.nav.experience },
   { id: 'proyectos', label: UI.nav.projects },
+  { id: 'personales', label: UI.nav.personal },
   { id: 'stack', label: UI.nav.stack },
   { id: 'contacto', label: UI.nav.contact },
 ] as const

@@ -1,49 +1,49 @@
-<!-- Tarjeta de proyecto: imagen, tipo, nombre, resumen y tecnologías. "Ver detalle" despliega el rol
-     y la lista completa de tecnologías (la tecnología filtrada se resalta). -->
+<!-- Caso de proyecto: imagen, tipo, nombre y cliente; qué es, mi rol, qué hice y con qué. Todo visible,
+     sin desplegables: el rol es lo que más le importa a quien revisa el CV. -->
 <script setup lang="ts">
-import { mdiChevronDown, mdiCodeBraces } from '@mdi/js'
-import { computed, ref, useId } from 'vue'
+import { mdiAccountHardHatOutline, mdiCheckCircle, mdiCodeBraces, mdiDomain } from '@mdi/js'
 import { useLocale } from '@/shared/i18n/locale'
 import AppBadge from '@/shared/ui/AppBadge.vue'
 import AppIcon from '@/shared/ui/AppIcon.vue'
-import type { Project } from '../content/projects.content'
+import { EMPLOYER_LABELS, type Project } from '../content/projects.content'
 import { UI } from '../content/profile.content'
 import type { TechName } from '../content/tech.content'
 import { resolveTitle } from '../utils/project-filters'
+import CompanyMark from './CompanyMark.vue'
 
-const { project, highlight = null } = defineProps<{
+const {
+  project,
+  highlight = null,
+  showCompany = false,
+} = defineProps<{
   project: Project
   highlight?: TechName | null
+  showCompany?: boolean
 }>()
 const { t, locale } = useLocale()
-
-const VISIBLE_TECH = 4
-const open = ref(false)
-const detailId = useId()
-
-const shownTech = computed(() => {
-  if (open.value) return project.tech
-  const first = project.tech.slice(0, VISIBLE_TECH)
-  // La tecnología filtrada siempre se ve, aunque esté más abajo en la lista.
-  return highlight && !first.includes(highlight) && project.tech.includes(highlight)
-    ? [...first.slice(0, VISIBLE_TECH - 1), highlight]
-    : first
-})
-const hiddenCount = computed(() => project.tech.length - shownTech.value.length)
 </script>
 
 <template>
   <article
     class="group flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-card)] ring-1 ring-border transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
   >
-    <div class="relative aspect-[16/10] overflow-hidden bg-surface-tint">
+    <div
+      class="relative overflow-hidden bg-surface-tint"
+      :class="
+        project.media.kind === 'image' && project.media.fit === 'contain' ? 'h-40' : 'aspect-[2/1]'
+      "
+    >
       <img
-        v-if="project.image"
-        :src="project.image.src"
-        :alt="t(project.image.alt)"
+        v-if="project.media.kind === 'image'"
+        :src="project.media.src"
+        :alt="t(project.media.alt)"
         loading="lazy"
         class="size-full transition-transform duration-500 group-hover:scale-[1.04]"
-        :class="project.image.fit === 'contain' ? 'object-contain p-8' : 'object-cover object-top'"
+        :class="
+          project.media.fit === 'contain'
+            ? 'bg-white object-contain px-10 pt-12 pb-6'
+            : 'object-cover object-top'
+        "
       />
       <div
         v-else
@@ -52,50 +52,57 @@ const hiddenCount = computed(() => project.tech.length - shownTech.value.length)
       >
         <AppIcon :path="mdiCodeBraces" :size="56" />
       </div>
+      <span class="absolute top-4 left-4">
+        <AppBadge tone="brand" class="bg-white/95 shadow-sm">{{ t(project.type) }}</AppBadge>
+      </span>
     </div>
 
-    <div class="flex flex-1 flex-col p-6">
-      <p class="text-xs font-bold tracking-wide text-brand uppercase">{{ t(project.type) }}</p>
-      <h3 class="mt-1.5 text-xl leading-snug font-bold">
+    <div class="flex flex-1 flex-col p-6 md:p-7">
+      <p v-if="showCompany" class="mb-3 flex items-center gap-2 text-xs font-bold text-ink-muted">
+        <CompanyMark :employer="project.employer" size="xs" />
+        {{ t(EMPLOYER_LABELS[project.employer]) }}
+      </p>
+      <h3 class="text-xl leading-snug font-extrabold">
         {{ resolveTitle(project.title, locale) }}
       </h3>
+      <p
+        v-if="project.client"
+        class="mt-1.5 flex items-center gap-1.5 text-sm font-semibold text-ink-muted"
+      >
+        <AppIcon :path="mdiDomain" :size="16" class="text-brand-sky" />
+        {{ t(UI.client) }}: <span class="text-ink">{{ project.client }}</span>
+      </p>
       <p class="mt-3 leading-relaxed text-ink-muted">{{ t(project.summary) }}</p>
 
-      <p
-        v-if="open"
-        :id="detailId"
-        class="mt-4 rounded-2xl bg-surface-soft p-4 text-sm leading-relaxed"
-      >
-        <strong class="text-brand">{{ t(UI.myRole) }}:</strong> {{ t(project.role) }}
-      </p>
-
-      <div class="mt-auto pt-5">
-        <p class="flex flex-wrap gap-1.5">
-          <AppBadge
-            v-for="tech in shownTech"
-            :key="tech"
-            :tone="tech === highlight ? 'brand' : 'neutral'"
-          >
-            {{ tech }}
-          </AppBadge>
-          <AppBadge v-if="hiddenCount > 0">+{{ hiddenCount }}</AppBadge>
+      <div class="mt-5 flex gap-3 rounded-2xl bg-accent-soft p-4 ring-1 ring-brand/10">
+        <AppIcon :path="mdiAccountHardHatOutline" :size="22" class="shrink-0 text-brand" />
+        <p class="text-sm leading-relaxed">
+          <strong class="block text-brand">{{ t(UI.myRole) }}</strong>
+          {{ t(project.role) }}
         </p>
-        <button
-          type="button"
-          class="mt-4 inline-flex items-center gap-1 rounded-lg text-sm font-semibold text-brand hover:underline"
-          :aria-expanded="open ? 'true' : 'false'"
-          :aria-controls="open ? detailId : undefined"
-          @click="open = !open"
-        >
-          {{ open ? t(UI.showLess) : t(UI.showMore) }}
-          <AppIcon
-            :path="mdiChevronDown"
-            :size="18"
-            class="transition-transform duration-300"
-            :class="open ? 'rotate-180' : ''"
-          />
-        </button>
       </div>
+
+      <h4 class="mt-5 text-sm font-bold">{{ t(UI.whatIDid) }}</h4>
+      <ul class="mt-2.5 space-y-2">
+        <li
+          v-for="(item, i) in project.highlights"
+          :key="i"
+          class="flex gap-2.5 text-sm leading-relaxed"
+        >
+          <AppIcon :path="mdiCheckCircle" :size="18" class="mt-0.5 shrink-0 text-brand-sky" />
+          <span>{{ t(item) }}</span>
+        </li>
+      </ul>
+
+      <p class="mt-auto flex flex-wrap gap-1.5 pt-6">
+        <AppBadge
+          v-for="tech in project.tech"
+          :key="tech"
+          :tone="tech === highlight ? 'brand' : 'neutral'"
+        >
+          {{ tech }}
+        </AppBadge>
+      </p>
     </div>
   </article>
 </template>

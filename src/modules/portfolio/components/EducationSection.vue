@@ -10,7 +10,7 @@ const { t } = useLocale()
 </script>
 
 <template>
-  <section class="bg-surface-soft py-20 md:py-28" aria-labelledby="education-title">
+  <section class="py-20 md:py-28" aria-labelledby="education-title">
     <div class="mx-auto max-w-6xl px-5">
       <SectionHeading heading-id="education-title" :title="t(EDUCATION.title)" />
 

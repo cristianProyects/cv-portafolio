@@ -48,6 +48,7 @@ export const UI = {
   nav: {
     experience: { es: 'Experiencia', en: 'Experience' },
     projects: { es: 'Proyectos', en: 'Projects' },
+    personal: { es: 'Personales', en: 'Personal' },
     stack: { es: 'Stack', en: 'Stack' },
     contact: { es: 'Contacto', en: 'Contact' },
   },
@@ -68,14 +69,20 @@ export const UI = {
   usedInOne: { es: 'proyecto', en: 'project' },
   filterBy: { es: 'Filtrando por', en: 'Filtering by' },
   clearFilter: { es: 'Quitar filtro', en: 'Clear filter' },
+  page: { es: 'Página', en: 'Page' },
+  prev: { es: 'Anterior', en: 'Previous' },
+  next: { es: 'Siguiente', en: 'Next' },
   noResults: {
-    es: 'Ningún proyecto de esta categoría usa esa tecnología. Prueba con "Todos".',
-    en: 'No project in this category uses that technology. Try "All".',
+    es: 'Ningún proyecto de esta empresa usa esa tecnología. Prueba con "Todos".',
+    en: 'No project at this company uses that technology. Try "All".',
   },
   stackHint: {
-    es: 'Toca una tecnología para ver en qué proyectos la usé.',
-    en: 'Tap a technology to see which projects used it.',
+    es: 'Toca cualquier tecnología para ver en qué trabajos y proyectos la he usado.',
+    en: 'Tap any technology to see the jobs and projects where I have used it.',
   },
+  whatIDid: { es: 'Qué hice', en: 'What I did' },
+  projectsHere: { es: 'Proyectos en este puesto', en: 'Projects in this role' },
+  client: { es: 'Cliente', en: 'Client' },
   footer: {
     es: 'Hecho con Vue 3, TypeScript y Tailwind CSS.',
     en: 'Built with Vue 3, TypeScript and Tailwind CSS.',
@@ -87,7 +94,6 @@ export const HERO = {
   facts: [
     { icon: 'clock', text: { es: '+3 años de experiencia', en: '3+ years of experience' } },
     { icon: 'bank', text: { es: 'Sector bancario · BBVA', en: 'Banking · BBVA' } },
-    { icon: 'google', text: { es: 'Formado en Google México', en: 'Trained at Google Mexico' } },
   ],
   photoAlt: {
     es: 'Cristian en las oficinas de Google México, Ciudad de México',
@@ -104,10 +110,10 @@ export const HERO = {
 
 // "De punta a punta": las capas que construyo en un mismo proyecto.
 export const END_TO_END = {
-  title: { es: 'Construyo el sistema completo', en: 'I build the whole system' },
+  title: { es: 'Experiencia de punta a punta', en: 'End-to-end experience' },
   intro: {
-    es: 'No solo pantallas: desde lo que ve el usuario hasta el servidor, los datos y el despliegue. Así se arma cada proyecto que entrego.',
-    en: 'Not just screens: from what the user sees to the server, the data and the deployment. That is how every project I ship comes together.',
+    es: 'En mis trabajos y proyectos he participado en cada etapa de una aplicación web, en orden: de la interfaz hasta la puesta en producción, siguiendo buenas prácticas en cada paso.',
+    en: 'Across my jobs and projects I have worked on every stage of a web application, in order: from the interface to the production release, following best practices at each step.',
   },
   layers: [
     {
@@ -118,7 +124,6 @@ export const END_TO_END = {
         es: 'Pantallas accesibles y rápidas a partir del diseño de UX/UI.',
         en: 'Accessible, fast screens built from UX/UI designs.',
       },
-      tech: ['Vue.js', 'React', 'TypeScript'],
     },
     {
       id: 'api',
@@ -128,7 +133,6 @@ export const END_TO_END = {
         es: 'Servicios REST, autenticación, webhooks y pagos.',
         en: 'REST services, authentication, webhooks and payments.',
       },
-      tech: ['Node.js', 'Express.js', 'JWT'],
     },
     {
       id: 'data',
@@ -138,7 +142,6 @@ export const END_TO_END = {
         es: 'Modelos, vistas, stored procedures y triggers.',
         en: 'Schemas, views, stored procedures and triggers.',
       },
-      tech: ['MySQL', 'SQL Server', 'PostgreSQL'],
     },
     {
       id: 'cloud',
@@ -148,26 +151,33 @@ export const END_TO_END = {
         es: 'Despliegue y automatización en Google Cloud.',
         en: 'Deployment and automation on Google Cloud.',
       },
-      tech: ['Cloud Run', 'App Engine', 'Firebase'],
     },
     {
       id: 'ci',
       icon: 'pipeline',
       title: { es: 'Calidad y CI/CD', en: 'Quality & CI/CD' },
       text: {
-        es: 'Pruebas, análisis de código y entregas continuas.',
-        en: 'Tests, code analysis and continuous delivery.',
+        es: 'Pruebas, análisis de código con SonarQube y revisión por Pull Request en cada cambio.',
+        en: 'Tests, SonarQube code analysis and Pull Request review on every change.',
       },
-      tech: ['Jenkins', 'SonarQube', 'Vitest'],
+    },
+    {
+      id: 'release',
+      icon: 'rocket',
+      title: { es: 'Puesta en producción', en: 'Production release' },
+      text: {
+        es: 'Releases versionadas con PR a main, despliegue automatizado, rollback listo y ramas bugfix/hotfix para corregir incidencias.',
+        en: 'Versioned releases via PR to main, automated deployment, ready rollback and bugfix/hotfix branches for incidents.',
+      },
     },
   ],
 } as const
 
 export const CONTACT = {
-  title: { es: '¿Construimos algo juntos?', en: 'Shall we build something together?' },
+  title: { es: 'Hablemos', en: "Let's talk" },
   text: {
-    es: 'Busco nuevos retos como Desarrollador Fullstack y también tomo proyectos freelance: landings, sistemas a la medida, paneles y pagos en línea. Te respondo pronto.',
-    en: "I'm open to new Fullstack Developer roles and freelance projects: landing pages, custom systems, admin panels and online payments. I'll get back to you soon.",
+    es: 'Estoy abierto a nuevas oportunidades como Desarrollador Fullstack. Si mi perfil encaja con tu equipo, escríbeme o descarga mi CV.',
+    en: "I'm open to new opportunities as a Fullstack Developer. If my profile fits your team, email me or download my resume.",
   },
   whatsapp: { es: 'WhatsApp', en: 'WhatsApp' },
 } as const

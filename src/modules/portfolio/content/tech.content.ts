@@ -23,6 +23,7 @@ export const TECH = {
   WebSockets: { logo: null },
   MQTT: { logo: null },
   Stripe: { logo: null },
+  Java: { logo: 'java/java-original' },
   Python: { logo: 'python/python-original' },
   FastAPI: { logo: 'fastapi/fastapi-original' },
   MySQL: { logo: 'mysql/mysql-original' },
@@ -87,7 +88,7 @@ export const STACK_GROUPS: StackGroup[] = [
   {
     id: 'backend',
     title: { es: 'Backend', en: 'Backend' },
-    items: ['Node.js', 'Express.js', 'API REST', 'JWT', 'WebSockets', 'MQTT', 'Stripe'],
+    items: ['Node.js', 'Express.js', 'Java', 'API REST', 'JWT', 'WebSockets', 'MQTT', 'Stripe'],
   },
   {
     id: 'data',
@@ -129,3 +130,8 @@ export const STACK_GROUPS: StackGroup[] = [
     items: ['Jira', 'Postman', 'Swagger', 'Tableau', 'Looker Studio'],
   },
 ]
+
+// Nivel aclarado junto al nombre cuando no es de uso diario (se muestra en el stack).
+export const TECH_NOTES: Partial<Record<TechName, Localized>> = {
+  Java: { es: 'Java 8 · básico', en: 'Java 8 · basic' },
+}

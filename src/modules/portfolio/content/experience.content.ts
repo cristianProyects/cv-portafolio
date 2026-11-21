@@ -3,13 +3,18 @@ import bbvaTower from '@/assets/bbva_yo.jpg'
 import type { Localized } from '@/shared/i18n/locale'
 import type { TechName } from './tech.content'
 
+// Dónde se hizo cada proyecto: una empresa de la experiencia o proyectos personales.
+export type EmployerId = 'hitss' | 'esource' | 'turing' | 'mera' | 'personal'
+
 export type Job = {
-  id: string
+  id: Exclude<EmployerId, 'personal'>
   role: Localized
   company: string
   client?: string
-  period: Localized
-  current: boolean
+  /** Mes de inicio y de fin (AAAA-MM); sin fin = puesto actual. */
+  start: string
+  end?: string
+  context: Localized
   image?: { src: string; alt: Localized }
   highlights: Localized[]
   tech: TechName[]
@@ -29,8 +34,11 @@ export const JOBS: Job[] = [
     role: { es: 'Desarrollador de Software Fullstack', en: 'Fullstack Software Developer' },
     company: 'Global Hitss',
     client: 'BBVA México',
-    period: { es: 'Oct 2024 — Actualidad', en: 'Oct 2024 — Present' },
-    current: true,
+    start: '2024-10',
+    context: {
+      es: 'Consultora de tecnología. Trabajo asignado a BBVA México en plataformas web de BBVA y Fundación BBVA, dentro de un flujo corporativo con integración continua, revisión de calidad y desarrollo seguro.',
+      en: 'Technology consultancy. Assigned to BBVA Mexico on BBVA and BBVA Foundation web platforms, inside a corporate flow with continuous integration, quality gates and secure development.',
+    },
     image: {
       src: bbvaTower,
       alt: {
@@ -76,8 +84,12 @@ export const JOBS: Job[] = [
     id: 'esource',
     role: { es: 'Programador Jr', en: 'Junior Developer' },
     company: 'Esource Capital',
-    period: { es: 'Ago 2023 — Oct 2024', en: 'Aug 2023 — Oct 2024' },
-    current: false,
+    start: '2023-08',
+    end: '2024-10',
+    context: {
+      es: 'Desarrollo de sistemas a la medida para empresas de distintos giros (farmacéutico, retail y alimentos) sobre Google AppSheet y MySQL.',
+      en: 'Custom systems for companies across industries (pharma, retail and food) built on Google AppSheet and MySQL.',
+    },
     highlights: [
       {
         es: 'Desarrollé sistemas en AppSheet para clientes de distintos giros (FANASA, Office Depot, Herdez), integrados con otros servicios mediante webhooks.',
@@ -102,8 +114,12 @@ export const JOBS: Job[] = [
     id: 'turing',
     role: { es: 'Becario de Desarrollo de Software', en: 'Software Development Intern' },
     company: 'Turing-IA',
-    period: { es: 'Ene 2023 — May 2023', en: 'Jan 2023 — May 2023' },
-    current: false,
+    start: '2023-01',
+    end: '2023-05',
+    context: {
+      es: 'Empresa de análisis de datos: portal para clientes, tableros e infraestructura interna, trabajando con SCRUM.',
+      en: 'Data analytics company: customer portal, dashboards and internal infrastructure, working in SCRUM.',
+    },
     highlights: [
       {
         es: 'Desarrollé un portal para clientes en React con React Router, Material UI y Context API.',
@@ -123,6 +139,45 @@ export const JOBS: Job[] = [
       },
     ],
     tech: ['React', 'Material UI', 'Tableau', 'SQL Server'],
+  },
+  {
+    id: 'mera',
+    role: {
+      es: 'Desarrollador de Sistemas · Educación Dual',
+      en: 'Systems Developer · Dual Education Program',
+    },
+    company: 'Soluciones Integrales de Ingeniería MERA',
+    start: '2022-11',
+    end: '2023-12',
+    context: {
+      es: 'Mi primera experiencia profesional, en modelo de educación dual: empecé desarrollando y terminé a cargo del área de sistemas.',
+      en: 'My first professional role, in a dual education program: I started as a developer and ended up in charge of the systems area.',
+    },
+    highlights: [
+      {
+        es: 'Encabecé de principio a fin una plataforma IoT con Vue.js, Node.js, MySQL, protocolo MQTT y WebSockets sobre Google Cloud, con arquitectura de microservicios.',
+        en: 'I led an IoT platform end to end with Vue.js, Node.js, MySQL, MQTT and WebSockets on Google Cloud, using a microservices architecture.',
+      },
+      {
+        es: 'Implementé un modelo matemático para la predicción de datos.',
+        en: 'I implemented a mathematical model for data prediction.',
+      },
+      {
+        es: 'Coordiné el reclutamiento del área de sistemas (entrevistas y evaluación de CVs) y, a raíz de ese trabajo, quedé a cargo del área.',
+        en: 'I ran recruiting for the systems area (interviews and CV screening) and, as a result, was put in charge of the area.',
+      },
+    ],
+    tech: [
+      'Vue.js',
+      'Node.js',
+      'Express.js',
+      'MySQL',
+      'MQTT',
+      'WebSockets',
+      'Compute Engine',
+      'Linux',
+      'GitHub',
+    ],
   },
 ]
 

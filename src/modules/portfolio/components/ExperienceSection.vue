@@ -1,15 +1,23 @@
-<!-- Experiencia como línea de tiempo: fechas a la izquierda, un punto por trabajo (el actual late en
-     naranja) y el detalle con logros y tecnologías. -->
+<!-- Experiencia como línea de tiempo: a la izquierda la empresa, el periodo y la duración; a la derecha
+     el puesto, el contexto, lo que hice, los proyectos de ese puesto (enlazados) y las tecnologías. -->
 <script setup lang="ts">
-import { mdiCheckCircle, mdiOfficeBuildingOutline } from '@mdi/js'
+import { mdiArrowRight, mdiCheckCircle } from '@mdi/js'
 import { useLocale } from '@/shared/i18n/locale'
 import AppBadge from '@/shared/ui/AppBadge.vue'
 import AppIcon from '@/shared/ui/AppIcon.vue'
 import SectionHeading from '@/shared/ui/SectionHeading.vue'
 import { EXPERIENCE_HEADING, JOBS } from '../content/experience.content'
 import { UI } from '../content/profile.content'
+import { PROJECTS } from '../content/projects.content'
+import { formatDuration, formatPeriod, monthsBetween } from '../utils/dates'
+import { resolveTitle } from '../utils/project-filters'
+import CompanyMark from './CompanyMark.vue'
 
+const emit = defineEmits<{ 'show-project': [id: string] }>()
 const { t, locale } = useLocale()
+const now = new Date()
+
+const projectsOf = (jobId: string) => PROJECTS.filter((p) => p.employer === jobId)
 </script>
 
 <template>
@@ -21,49 +29,54 @@ const { t, locale } = useLocale()
         :intro="t(EXPERIENCE_HEADING.intro)"
       />
 
-      <ol class="relative">
+      <ol class="space-y-12 md:space-y-16">
         <li
           v-for="job in JOBS"
           :key="job.id"
           data-reveal
-          class="relative grid gap-4 pb-14 pl-10 last:pb-0 md:grid-cols-[11rem_1fr] md:gap-10 md:pl-0"
+          class="relative grid gap-5 md:grid-cols-[15rem_1fr] md:gap-10"
         >
-          <!-- Columna de fecha + punto en la línea -->
-          <div class="md:pt-7 md:text-right">
-            <p class="tabular text-sm font-bold text-brand">{{ t(job.period) }}</p>
-            <AppBadge v-if="job.current" tone="live" class="mt-2">{{ t(UI.current) }}</AppBadge>
-          </div>
-          <span
-            class="absolute top-1 bottom-0 left-[0.6875rem] w-0.5 bg-border md:top-8 md:left-[12.9375rem]"
-            aria-hidden="true"
-          />
-          <span
-            class="absolute top-1 left-0 grid size-6 place-items-center rounded-full bg-white ring-2 md:top-8 md:left-[12.25rem]"
-            :class="job.current ? 'ring-spark' : 'ring-brand/40'"
-            aria-hidden="true"
-          >
-            <span class="size-2.5 rounded-full" :class="job.current ? 'bg-spark' : 'bg-brand'" />
-          </span>
+          <!-- Empresa y periodo -->
+          <header class="md:sticky md:top-24 md:self-start">
+            <div class="flex items-center gap-4 md:flex-col md:items-start">
+              <CompanyMark :employer="job.id" />
+              <div>
+                <p class="text-lg leading-tight font-bold">{{ job.company }}</p>
+                <p v-if="job.client" class="text-sm font-semibold text-ink-muted">
+                  {{ t(UI.client) }}: <span class="text-brand">{{ job.client }}</span>
+                </p>
+              </div>
+            </div>
+            <p class="tabular mt-4 text-sm font-semibold text-ink">
+              {{ formatPeriod(job.start, job.end, locale) }}
+            </p>
+            <p class="mt-2 flex flex-wrap gap-2">
+              <AppBadge v-if="!job.end" tone="live">{{ t(UI.current) }}</AppBadge>
+              <AppBadge>{{
+                formatDuration(monthsBetween(job.start, job.end, now), locale)
+              }}</AppBadge>
+            </p>
+          </header>
 
+          <!-- Detalle -->
           <article
-            class="overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-card)] ring-1 ring-border md:ml-8"
-            :class="job.image ? 'lg:grid lg:grid-cols-[1fr_15rem]' : ''"
+            class="overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-card)] ring-1 ring-border"
           >
+            <img
+              v-if="job.image"
+              :src="job.image.src"
+              :alt="t(job.image.alt)"
+              loading="lazy"
+              width="960"
+              height="1280"
+              class="h-40 w-full object-cover object-[50%_32%] md:h-52"
+            />
             <div class="p-6 md:p-8">
-              <h3 class="text-xl leading-snug font-bold md:text-2xl">{{ t(job.role) }}</h3>
-              <p class="mt-1 flex flex-wrap items-center gap-x-2 font-semibold text-ink-muted">
-                <AppIcon :path="mdiOfficeBuildingOutline" :size="18" class="text-brand" />
-                {{ job.company }}
-                <template v-if="job.client">
-                  <span aria-hidden="true">·</span>
-                  <span>
-                    {{ locale === 'es' ? 'Cliente' : 'Client' }}:
-                    <strong class="text-brand">{{ job.client }}</strong>
-                  </span>
-                </template>
-              </p>
+              <h3 class="text-xl leading-snug font-extrabold md:text-2xl">{{ t(job.role) }}</h3>
+              <p class="mt-3 leading-relaxed text-ink-muted">{{ t(job.context) }}</p>
 
-              <ul class="mt-5 space-y-3">
+              <h4 class="mt-6 text-sm font-bold text-brand">{{ t(UI.whatIDid) }}</h4>
+              <ul class="mt-3 space-y-3">
                 <li
                   v-for="(item, i) in job.highlights"
                   :key="i"
@@ -74,19 +87,47 @@ const { t, locale } = useLocale()
                 </li>
               </ul>
 
-              <p class="mt-6 flex flex-wrap gap-1.5">
+              <template v-if="projectsOf(job.id).length">
+                <h4 class="mt-7 text-sm font-bold text-brand">{{ t(UI.projectsHere) }}</h4>
+                <ul class="mt-3 grid gap-2 sm:grid-cols-2">
+                  <li v-for="project in projectsOf(job.id)" :key="project.id">
+                    <a
+                      :href="`#proyecto-${project.id}`"
+                      class="group flex items-center gap-3 rounded-2xl bg-surface-soft p-2.5 pr-4 ring-1 ring-border transition-colors hover:bg-accent-soft hover:ring-brand/30"
+                      @click.prevent="emit('show-project', project.id)"
+                    >
+                      <img
+                        v-if="project.media.kind === 'image'"
+                        :src="project.media.src"
+                        alt=""
+                        loading="lazy"
+                        class="size-11 shrink-0 rounded-xl bg-white"
+                        :class="
+                          project.media.fit === 'contain' ? 'object-contain p-1' : 'object-cover'
+                        "
+                      />
+                      <span class="min-w-0 flex-1">
+                        <span class="block truncate text-sm font-bold">
+                          {{ resolveTitle(project.title, locale) }}
+                        </span>
+                        <span v-if="project.client" class="block text-xs text-ink-muted">
+                          {{ project.client }}
+                        </span>
+                      </span>
+                      <AppIcon
+                        :path="mdiArrowRight"
+                        :size="18"
+                        class="text-brand transition-transform group-hover:translate-x-0.5"
+                      />
+                    </a>
+                  </li>
+                </ul>
+              </template>
+
+              <p class="mt-7 flex flex-wrap gap-1.5">
                 <AppBadge v-for="tech in job.tech" :key="tech">{{ tech }}</AppBadge>
               </p>
             </div>
-            <img
-              v-if="job.image"
-              :src="job.image.src"
-              :alt="t(job.image.alt)"
-              loading="lazy"
-              width="960"
-              height="1280"
-              class="hidden h-full w-full object-cover object-[50%_35%] lg:block"
-            />
           </article>
         </li>
       </ol>

@@ -1,4 +1,4 @@
-<!-- "Construyo el sistema completo": las cinco capas de un proyecto unidas por una línea que se
+<!-- "Experiencia de punta a punta": las seis etapas numeradas de un proyecto unidas por una línea que se
      dibuja al entrar en pantalla (horizontal en escritorio, vertical en celular). -->
 <script setup lang="ts">
 import {
@@ -6,6 +6,7 @@ import {
   mdiCloudOutline,
   mdiDatabaseOutline,
   mdiMonitorCellphone,
+  mdiRocketLaunchOutline,
   mdiSourceBranchCheck,
 } from '@mdi/js'
 import { useLocale } from '@/shared/i18n/locale'
@@ -21,6 +22,7 @@ const ICONS = {
   database: mdiDatabaseOutline,
   cloud: mdiCloudOutline,
   pipeline: mdiSourceBranchCheck,
+  rocket: mdiRocketLaunchOutline,
 } as const
 </script>
 
@@ -33,34 +35,34 @@ const ICONS = {
         :intro="t(END_TO_END.intro)"
       />
 
-      <ol data-reveal class="e2e relative grid gap-10 md:grid-cols-5 md:gap-6">
+      <ol
+        data-reveal
+        class="e2e relative grid gap-10 md:grid-cols-3 md:gap-y-12 lg:grid-cols-6 lg:gap-6"
+      >
         <!-- Línea que une las capas -->
         <span
-          class="e2e-line absolute top-7 bottom-7 left-7 w-0.5 rounded-full bg-gradient-to-b from-brand via-brand-sky to-spark md:top-7 md:right-[10%] md:bottom-auto md:left-[10%] md:h-0.5 md:w-auto md:bg-gradient-to-r"
+          class="e2e-line absolute md:hidden lg:block top-7 bottom-7 left-7 w-0.5 rounded-full bg-gradient-to-b from-brand via-brand-sky to-spark lg:top-7 lg:right-[8%] lg:bottom-auto lg:left-[8%] lg:h-0.5 lg:w-auto lg:bg-gradient-to-r"
           aria-hidden="true"
         />
         <li
           v-for="(layer, index) in END_TO_END.layers"
           :key="layer.id"
-          class="e2e-node relative grid grid-cols-[3.5rem_1fr] gap-x-5 md:grid-cols-1 md:text-center"
+          class="e2e-node relative grid grid-cols-[3.5rem_1fr] gap-x-5 md:grid-cols-1 md:content-start md:text-center"
           :style="{ '--i': index }"
         >
           <span
             class="relative z-10 grid size-14 place-items-center rounded-2xl bg-white text-brand shadow-[var(--shadow-card)] ring-1 ring-border md:mx-auto"
           >
             <AppIcon :path="ICONS[layer.icon]" :size="28" />
+            <span
+              class="tabular absolute -top-2 -right-2 grid size-6 place-items-center rounded-full text-xs font-extrabold text-white shadow-md"
+              :class="index === END_TO_END.layers.length - 1 ? 'bg-spark' : 'bg-brand'"
+              >{{ index + 1 }}</span
+            >
           </span>
           <div class="md:mt-5">
-            <h3 class="text-lg font-bold">{{ t(layer.title) }}</h3>
+            <h3 class="text-lg leading-snug font-bold">{{ t(layer.title) }}</h3>
             <p class="mt-1 text-sm leading-relaxed text-ink-muted">{{ t(layer.text) }}</p>
-            <p class="mt-3 flex flex-wrap gap-1.5 md:justify-center">
-              <span
-                v-for="tech in layer.tech"
-                :key="tech"
-                class="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-brand ring-1 ring-brand/15"
-                >{{ tech }}</span
-              >
-            </p>
           </div>
         </li>
       </ol>
@@ -82,7 +84,7 @@ const ICONS = {
   transition: scale 1.4s var(--ease-out-expo);
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 64rem) {
   :global(.can-reveal) .e2e .e2e-line {
     scale: 0 1;
   }
