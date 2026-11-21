@@ -55,7 +55,6 @@ export const UI = {
   menuOpen: { es: 'Abrir menú', en: 'Open menu' },
   menuClose: { es: 'Cerrar menú', en: 'Close menu' },
   home: { es: 'inicio', en: 'home' },
-  switchLanguage: { es: 'Switch to English', en: 'Cambiar a español' },
   downloadCv: { es: 'Descargar CV', en: 'Download resume' },
   seeProjects: { es: 'Ver proyectos', en: 'See projects' },
   writeMe: { es: 'Escríbeme', en: 'Email me' },

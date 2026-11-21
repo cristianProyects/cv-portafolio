@@ -8,7 +8,7 @@ import { useActiveSection } from '@/shared/composables/useActiveSection'
 import { useLocale } from '@/shared/i18n/locale'
 import AppIcon from '@/shared/ui/AppIcon.vue'
 
-const { t, locale, toggleLocale } = useLocale()
+const { t } = useLocale()
 
 const LINKS = [
   { id: 'experiencia', label: UI.nav.experience },
@@ -65,20 +65,6 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
       </a>
 
       <div class="flex items-center gap-2 lg:order-last">
-        <button
-          type="button"
-          class="inline-flex h-10 items-center rounded-full bg-surface-soft p-1 text-xs font-bold ring-1 ring-border"
-          :aria-label="t(UI.switchLanguage)"
-          @click="toggleLocale"
-        >
-          <span
-            v-for="code in ['es', 'en'] as const"
-            :key="code"
-            class="rounded-full px-2.5 py-1.5 uppercase transition-colors"
-            :class="locale === code ? 'bg-brand text-white' : 'text-ink-muted'"
-            >{{ code }}</span
-          >
-        </button>
         <a
           :href="t(PROFILE.cv).href"
           :download="t(PROFILE.cv).file"
@@ -103,7 +89,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
 
       <nav
         id="site-menu"
-        :aria-label="locale === 'es' ? 'Secciones' : 'Sections'"
+        aria-label="Secciones"
         :class="isOpen ? 'flex' : 'hidden'"
         class="absolute inset-x-0 top-full flex-col gap-1 border-b border-border bg-white px-5 pt-2 pb-5 lg:static lg:ml-auto lg:flex lg:flex-row lg:items-center lg:gap-1 lg:border-0 lg:bg-transparent lg:p-0"
         @keydown.esc="close(true)"

@@ -1,68 +1,29 @@
-// Idioma del sitio (ES por defecto, EN con el botón). Se recuerda entre visitas y actualiza
-// <html lang>. El contenido bilingüe se escribe como { es, en } y se resuelve con `t()`.
-import { computed, ref } from 'vue'
+// Idioma del sitio: solo español. El contenido sigue escrito como { es, en } (por si algún día se
+// vuelve a ofrecer inglés) y se resuelve con `t()`, que siempre devuelve la versión en español.
+import { computed } from 'vue'
 
 export const LOCALES = ['es', 'en'] as const
 export type Locale = (typeof LOCALES)[number]
 export type Localized<T = string> = Record<Locale, T>
 
-export const STORAGE_KEY = 'cv-locale'
-const HTML_LANG: Record<Locale, string> = { es: 'es-MX', en: 'en' }
-
-export function isLocale(value: unknown): value is Locale {
-  return typeof value === 'string' && (LOCALES as readonly string[]).includes(value)
-}
-
-// Idioma inicial: el guardado; si no hay, inglés solo cuando el navegador lo pide primero.
-export function detectLocale(
-  stored: string | null,
-  browserLanguages: readonly string[] = [],
-): Locale {
-  if (isLocale(stored)) return stored
-  const first = browserLanguages[0]?.toLowerCase() ?? ''
-  return first.startsWith('en') ? 'en' : 'es'
-}
-
-function readStored(): string | null {
-  try {
-    return localStorage.getItem(STORAGE_KEY)
-  } catch {
-    return null
-  }
-}
-
-const current = ref<Locale>(
-  detectLocale(readStored(), typeof navigator === 'undefined' ? [] : navigator.languages),
-)
-
-function apply(locale: Locale) {
-  document.documentElement.lang = HTML_LANG[locale]
-  try {
-    localStorage.setItem(STORAGE_KEY, locale)
-  } catch {
-    // Modo privado o almacenamiento bloqueado: el idioma vale solo para esta visita.
-  }
-}
+const CURRENT: Locale = 'es'
 
 export function useLocale() {
-  const locale = computed(() => current.value)
-
-  function setLocale(next: Locale) {
-    current.value = next
-    apply(next)
-  }
-
-  function toggleLocale() {
-    setLocale(current.value === 'es' ? 'en' : 'es')
-  }
+  const locale = computed(() => CURRENT)
 
   function t<T>(value: Localized<T>): T {
-    return value[current.value]
+    return value[CURRENT]
   }
 
-  return { locale, setLocale, toggleLocale, t }
+  return { locale, t }
 }
 
 export function initLocale() {
-  apply(current.value)
+  document.documentElement.lang = 'es-MX'
+  try {
+    // Limpia la preferencia que guardaba el antiguo botón ES/EN.
+    localStorage.removeItem('cv-locale')
+  } catch {
+    // Almacenamiento bloqueado: no hay nada que limpiar.
+  }
 }

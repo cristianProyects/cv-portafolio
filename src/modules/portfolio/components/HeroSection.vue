@@ -23,13 +23,9 @@ const FACT_ICONS = { clock: mdiClockOutline, bank: mdiBankOutline } as const
 
 <template>
   <section id="inicio" class="relative -mt-16 overflow-hidden pt-16">
-    <!-- Fondo: lavado azul muy claro y una retícula de puntos que se desvanece. -->
+    <!-- Fondo: lavado azul muy claro. -->
     <div
       class="pointer-events-none absolute inset-0 bg-gradient-to-b from-accent-soft via-surface to-surface"
-      aria-hidden="true"
-    />
-    <div
-      class="hero-dots pointer-events-none absolute inset-x-0 top-0 h-[560px] opacity-70"
       aria-hidden="true"
     />
 
@@ -147,15 +143,6 @@ const FACT_ICONS = { clock: mdiClockOutline, bank: mdiBankOutline } as const
 </template>
 
 <style scoped>
-.hero-dots {
-  background-image: radial-gradient(
-    color-mix(in srgb, var(--color-brand) 22%, transparent) 1.2px,
-    transparent 1.2px
-  );
-  background-size: 22px 22px;
-  mask-image: radial-gradient(ellipse 70% 80% at 75% 20%, black 20%, transparent 75%);
-}
-
 /* Movimiento de entrada (un solo momento): las fotos se acomodan, las tarjetas aterrizan y el
    subrayado se dibuja. Con movimiento reducido todo aparece ya en su lugar. */
 @media (prefers-reduced-motion: no-preference) {
