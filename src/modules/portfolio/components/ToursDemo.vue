@@ -104,12 +104,12 @@ const money = (n: number) => `$${n.toLocaleString('es-MX')}`
     </ul>
 
     <div
-      class="mt-4 flex items-center justify-between rounded-2xl bg-brand-navy px-4 py-3 text-white"
+      class="mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-0.5 rounded-2xl bg-brand-navy px-4 py-3 text-white"
     >
       <span class="text-xs text-white/75">{{
         t({ es: 'Total por persona', en: 'Total per person' })
       }}</span>
-      <span class="tabular text-lg font-bold">{{ money(total) }} MXN</span>
+      <span class="tabular text-lg font-bold whitespace-nowrap">{{ money(total) }} MXN</span>
     </div>
   </div>
 </template>

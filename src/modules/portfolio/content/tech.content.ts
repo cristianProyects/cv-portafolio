@@ -130,8 +130,3 @@ export const STACK_GROUPS: StackGroup[] = [
     items: ['Jira', 'Postman', 'Swagger', 'Tableau', 'Looker Studio'],
   },
 ]
-
-// Nivel aclarado junto al nombre cuando no es de uso diario (se muestra en el stack).
-export const TECH_NOTES: Partial<Record<TechName, Localized>> = {
-  Java: { es: 'Java 8 · básico', en: 'Java 8 · basic' },
-}

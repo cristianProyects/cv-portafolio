@@ -39,7 +39,12 @@ async function showProject(id: string) {
   await nextTick()
   // La transición de página tarda un instante en montar la tarjeta.
   setTimeout(() => {
-    document.getElementById(`proyecto-${id}`)?.scrollIntoView({ block: 'start' })
+    // En celular los proyectos de empresas viven en un carrusel con otro id.
+    const mobile = window.matchMedia('(max-width: 47.99rem)').matches
+    const target =
+      (mobile && document.getElementById(`proyecto-m-${id}`)) ||
+      document.getElementById(`proyecto-${id}`)
+    target?.scrollIntoView({ block: 'start', inline: 'start' })
   }, 300)
   history.replaceState(null, '', `#proyecto-${id}`)
   focused.value = id

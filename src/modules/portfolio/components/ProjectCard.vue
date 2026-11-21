@@ -5,6 +5,7 @@ import { mdiAccountHardHatOutline, mdiCheckCircle, mdiCodeBraces, mdiDomain } fr
 import { useLocale } from '@/shared/i18n/locale'
 import AppBadge from '@/shared/ui/AppBadge.vue'
 import AppIcon from '@/shared/ui/AppIcon.vue'
+import ExpandOnMobile from '@/shared/ui/ExpandOnMobile.vue'
 import { EMPLOYER_LABELS, type Project } from '../content/projects.content'
 import { UI } from '../content/profile.content'
 import type { TechName } from '../content/tech.content'
@@ -57,7 +58,7 @@ const { t, locale } = useLocale()
       </span>
     </div>
 
-    <div class="flex flex-1 flex-col p-6 md:p-7">
+    <div class="flex flex-1 flex-col p-5 md:p-7">
       <p v-if="showCompany" class="mb-3 flex items-center gap-2 text-xs font-bold text-ink-muted">
         <CompanyMark :employer="project.employer" size="xs" />
         {{ t(EMPLOYER_LABELS[project.employer]) }}
@@ -82,27 +83,33 @@ const { t, locale } = useLocale()
         </p>
       </div>
 
-      <h4 class="mt-5 text-sm font-bold">{{ t(UI.whatIDid) }}</h4>
-      <ul class="mt-2.5 space-y-2">
-        <li
-          v-for="(item, i) in project.highlights"
-          :key="i"
-          class="flex gap-2.5 text-sm leading-relaxed"
-        >
-          <AppIcon :path="mdiCheckCircle" :size="18" class="mt-0.5 shrink-0 text-brand-sky" />
-          <span>{{ t(item) }}</span>
-        </li>
-      </ul>
+      <ExpandOnMobile
+        :more-label="t(UI.showMore)"
+        :less-label="t(UI.showLess)"
+        content-class="flex flex-1 flex-col"
+      >
+        <h4 class="mt-5 text-sm font-bold">{{ t(UI.whatIDid) }}</h4>
+        <ul class="mt-2.5 space-y-2">
+          <li
+            v-for="(item, i) in project.highlights"
+            :key="i"
+            class="flex gap-2.5 text-sm leading-relaxed"
+          >
+            <AppIcon :path="mdiCheckCircle" :size="18" class="mt-0.5 shrink-0 text-brand-sky" />
+            <span>{{ t(item) }}</span>
+          </li>
+        </ul>
 
-      <p class="mt-auto flex flex-wrap gap-1.5 pt-6">
-        <AppBadge
-          v-for="tech in project.tech"
-          :key="tech"
-          :tone="tech === highlight ? 'brand' : 'neutral'"
-        >
-          {{ tech }}
-        </AppBadge>
-      </p>
+        <p class="mt-auto flex flex-wrap gap-1.5 pt-6">
+          <AppBadge
+            v-for="tech in project.tech"
+            :key="tech"
+            :tone="tech === highlight ? 'brand' : 'neutral'"
+          >
+            {{ tech }}
+          </AppBadge>
+        </p>
+      </ExpandOnMobile>
     </div>
   </article>
 </template>

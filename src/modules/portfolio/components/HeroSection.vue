@@ -96,7 +96,7 @@ const FACT_ICONS = { clock: mdiClockOutline, bank: mdiBankOutline } as const
       </div>
 
       <!-- Composición de fotos -->
-      <div class="relative mx-auto w-full max-w-md lg:max-w-none">
+      <div class="relative mx-auto w-full max-w-[19rem] sm:max-w-md lg:max-w-none">
         <div
           class="hero-plate absolute inset-0 translate-x-5 translate-y-6 rounded-[2.5rem] bg-gradient-to-br from-brand-navy via-brand to-brand-sky"
           aria-hidden="true"

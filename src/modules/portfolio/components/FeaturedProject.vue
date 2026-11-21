@@ -5,6 +5,7 @@ import { mdiAccountHardHatOutline, mdiCheckCircle, mdiInformationOutline } from 
 import { useLocale } from '@/shared/i18n/locale'
 import AppBadge from '@/shared/ui/AppBadge.vue'
 import AppIcon from '@/shared/ui/AppIcon.vue'
+import ExpandOnMobile from '@/shared/ui/ExpandOnMobile.vue'
 import type { Project } from '../content/projects.content'
 import { UI } from '../content/profile.content'
 import type { TechName } from '../content/tech.content'
@@ -24,7 +25,7 @@ const { t, locale } = useLocale()
   <article
     class="grid overflow-hidden rounded-[2rem] bg-white shadow-[var(--shadow-card)] ring-1 ring-border lg:grid-cols-[1.1fr_1fr]"
   >
-    <div class="p-7 md:p-10" :class="flip ? 'lg:order-last' : ''">
+    <div class="p-5 sm:p-7 md:p-10" :class="flip ? 'lg:order-last' : ''">
       <p class="flex flex-wrap gap-2">
         <AppBadge tone="brand">{{ t(project.type) }}</AppBadge>
         <AppBadge v-if="project.status" :tone="project.status.live ? 'live' : 'neutral'">
@@ -44,23 +45,25 @@ const { t, locale } = useLocale()
         </p>
       </div>
 
-      <h4 class="mt-6 text-sm font-bold">{{ t(UI.whatIDid) }}</h4>
-      <ul class="mt-3 space-y-2.5">
-        <li v-for="(item, i) in project.highlights" :key="i" class="flex gap-2.5 leading-relaxed">
-          <AppIcon :path="mdiCheckCircle" :size="20" class="mt-0.5 shrink-0 text-brand-sky" />
-          <span>{{ t(item) }}</span>
-        </li>
-      </ul>
+      <ExpandOnMobile :more-label="t(UI.showMore)" :less-label="t(UI.showLess)">
+        <h4 class="mt-6 text-sm font-bold">{{ t(UI.whatIDid) }}</h4>
+        <ul class="mt-3 space-y-2.5">
+          <li v-for="(item, i) in project.highlights" :key="i" class="flex gap-2.5 leading-relaxed">
+            <AppIcon :path="mdiCheckCircle" :size="20" class="mt-0.5 shrink-0 text-brand-sky" />
+            <span>{{ t(item) }}</span>
+          </li>
+        </ul>
 
-      <p class="mt-6 flex flex-wrap gap-1.5">
-        <AppBadge
-          v-for="tech in project.tech"
-          :key="tech"
-          :tone="tech === highlight ? 'brand' : 'neutral'"
-        >
-          {{ tech }}
-        </AppBadge>
-      </p>
+        <p class="mt-6 flex flex-wrap gap-1.5">
+          <AppBadge
+            v-for="tech in project.tech"
+            :key="tech"
+            :tone="tech === highlight ? 'brand' : 'neutral'"
+          >
+            {{ tech }}
+          </AppBadge>
+        </p>
+      </ExpandOnMobile>
     </div>
 
     <div

@@ -132,7 +132,11 @@ const CHANNELS = [
                   <p class="text-xs font-bold tracking-wide text-ink-muted uppercase">
                     {{ t({ es: 'Correo', en: 'Email' }) }}
                   </p>
-                  <p class="font-bold break-all sm:truncate">{{ PROFILE.email }}</p>
+                  <p
+                    class="text-sm font-bold break-all min-[400px]:break-normal sm:truncate sm:text-base"
+                  >
+                    {{ PROFILE.email }}
+                  </p>
                 </div>
               </div>
               <div class="mt-4 grid grid-cols-1 gap-2 min-[360px]:grid-cols-2">

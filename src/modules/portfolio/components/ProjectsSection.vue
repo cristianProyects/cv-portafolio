@@ -1,8 +1,8 @@
-<!-- Proyectos hechos en empresas: filtro por empresa o tecnología y paginación de 4 en 4 (2×2) para no alargar
-     la página. Cada tarjeta dice de qué empresa es. Los personales viven en su propia sección. -->
+<!-- Proyectos hechos en empresas: filtro por empresa o tecnología; en tablet/escritorio paginación 2×2 y
+     en celular un carrusel deslizable, para no alargar la página. Cada tarjeta dice de qué empresa es. Los personales viven en su propia sección. -->
 <script setup lang="ts">
 import { mdiChevronLeft, mdiChevronRight, mdiClose, mdiFilterVariant } from '@mdi/js'
-import { computed, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useLocale } from '@/shared/i18n/locale'
 import AppIcon from '@/shared/ui/AppIcon.vue'
 import SectionHeading from '@/shared/ui/SectionHeading.vue'
@@ -26,8 +26,23 @@ const current = computed(() =>
 )
 const countOf = (key: EmployerFilter) => filterProjects(WORK_PROJECTS, key, tech.value).length
 
-// Cambiar de filtro vuelve a la primera página.
+// Cambiar de filtro vuelve a la primera página (y al inicio del carrusel en celular).
 watch([employer, tech], () => (page.value = 1), { flush: 'sync' })
+watch([employer, tech], () => {
+  slide.value = 0
+  track.value?.scrollTo({ left: 0 })
+})
+
+// Carrusel de celular: qué tarjeta está a la vista.
+const track = ref<HTMLUListElement | null>(null)
+const slide = ref(0)
+function onTrackScroll() {
+  const el = track.value
+  const first = el?.firstElementChild as HTMLElement | null
+  if (!el || !first) return
+  const step = first.offsetWidth + 16
+  slide.value = Math.min(visible.value.length - 1, Math.round(el.scrollLeft / step))
+}
 
 function goTo(next: number) {
   page.value = Math.min(pages.value, Math.max(1, next))
@@ -92,64 +107,106 @@ function goTo(next: number) {
       </div>
 
       <template v-if="visible.length">
-        <Transition name="page" mode="out-in">
-          <div :key="`${employer}-${tech}-${page}`" class="mt-8 grid gap-6 md:grid-cols-2">
-            <div
-              v-for="project in current"
-              :id="`proyecto-${project.id}`"
+        <!-- Tablet y escritorio: cuadrícula 2×2 paginada -->
+        <div class="hidden md:block">
+          <Transition name="page" mode="out-in">
+            <div :key="`${employer}-${tech}-${page}`" class="mt-8 grid gap-6 md:grid-cols-2">
+              <div
+                v-for="project in current"
+                :id="`proyecto-${project.id}`"
+                :key="project.id"
+                class="scroll-mt-28 rounded-[var(--radius-card)] transition-shadow duration-500"
+                :class="
+                  focused === project.id
+                    ? 'ring-4 ring-brand-sky/60 ring-offset-4 ring-offset-surface-soft'
+                    : ''
+                "
+              >
+                <ProjectCard :project="project" :highlight="tech" show-company class="h-full" />
+              </div>
+            </div>
+          </Transition>
+
+          <nav
+            v-if="pages > 1"
+            class="mt-10 flex items-center justify-center gap-2"
+            :aria-label="t({ es: 'Páginas de proyectos', en: 'Project pages' })"
+          >
+            <button
+              type="button"
+              class="grid size-11 place-items-center rounded-full bg-white text-brand ring-1 ring-border transition-colors hover:bg-accent-soft disabled:cursor-not-allowed disabled:opacity-40"
+              :disabled="page === 1"
+              :aria-label="t(UI.prev)"
+              @click="goTo(page - 1)"
+            >
+              <AppIcon :path="mdiChevronLeft" :size="22" />
+            </button>
+            <button
+              v-for="n in pages"
+              :key="n"
+              type="button"
+              class="tabular grid size-11 place-items-center rounded-full text-sm font-bold transition-colors"
+              :class="
+                n === page
+                  ? 'bg-brand text-white shadow-md shadow-brand/25'
+                  : 'bg-white text-ink-muted ring-1 ring-border hover:text-brand'
+              "
+              :aria-label="`${t(UI.page)} ${n}`"
+              :aria-current="n === page ? 'page' : undefined"
+              @click="goTo(n)"
+            >
+              {{ n }}
+            </button>
+            <button
+              type="button"
+              class="grid size-11 place-items-center rounded-full bg-white text-brand ring-1 ring-border transition-colors hover:bg-accent-soft disabled:cursor-not-allowed disabled:opacity-40"
+              :disabled="page === pages"
+              :aria-label="t(UI.next)"
+              @click="goTo(page + 1)"
+            >
+              <AppIcon :path="mdiChevronRight" :size="22" />
+            </button>
+          </nav>
+        </div>
+
+        <!-- Celular: carrusel que se desliza con el dedo -->
+        <div class="md:hidden">
+          <ul
+            ref="track"
+            class="-mx-5 mt-6 flex snap-x snap-mandatory items-start gap-4 overflow-x-auto scroll-px-5 px-5 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            :aria-label="
+              t({ es: 'Proyectos (desliza para ver más)', en: 'Projects (swipe for more)' })
+            "
+            @scroll.passive="onTrackScroll"
+          >
+            <li
+              v-for="project in visible"
+              :id="`proyecto-m-${project.id}`"
               :key="project.id"
-              class="scroll-mt-28 rounded-[var(--radius-card)] transition-shadow duration-500"
+              class="w-[86%] max-w-sm shrink-0 snap-start rounded-[var(--radius-card)] transition-shadow duration-500"
               :class="
                 focused === project.id
                   ? 'ring-4 ring-brand-sky/60 ring-offset-4 ring-offset-surface-soft'
                   : ''
               "
             >
-              <ProjectCard :project="project" :highlight="tech" show-company class="h-full" />
-            </div>
+              <ProjectCard :project="project" :highlight="tech" show-company />
+            </li>
+          </ul>
+          <div class="mt-2 flex items-center justify-center gap-3">
+            <span class="flex gap-1.5" aria-hidden="true">
+              <span
+                v-for="(p, i) in visible"
+                :key="p.id"
+                class="h-2 rounded-full transition-all duration-300"
+                :class="i === slide ? 'w-6 bg-brand' : 'w-2 bg-border'"
+              />
+            </span>
+            <span class="tabular text-sm font-semibold text-ink-muted" aria-live="polite">
+              {{ slide + 1 }} / {{ visible.length }}
+            </span>
           </div>
-        </Transition>
-
-        <nav
-          v-if="pages > 1"
-          class="mt-10 flex items-center justify-center gap-2"
-          :aria-label="t({ es: 'Páginas de proyectos', en: 'Project pages' })"
-        >
-          <button
-            type="button"
-            class="grid size-11 place-items-center rounded-full bg-white text-brand ring-1 ring-border transition-colors hover:bg-accent-soft disabled:cursor-not-allowed disabled:opacity-40"
-            :disabled="page === 1"
-            :aria-label="t(UI.prev)"
-            @click="goTo(page - 1)"
-          >
-            <AppIcon :path="mdiChevronLeft" :size="22" />
-          </button>
-          <button
-            v-for="n in pages"
-            :key="n"
-            type="button"
-            class="tabular grid size-11 place-items-center rounded-full text-sm font-bold transition-colors"
-            :class="
-              n === page
-                ? 'bg-brand text-white shadow-md shadow-brand/25'
-                : 'bg-white text-ink-muted ring-1 ring-border hover:text-brand'
-            "
-            :aria-label="`${t(UI.page)} ${n}`"
-            :aria-current="n === page ? 'page' : undefined"
-            @click="goTo(n)"
-          >
-            {{ n }}
-          </button>
-          <button
-            type="button"
-            class="grid size-11 place-items-center rounded-full bg-white text-brand ring-1 ring-border transition-colors hover:bg-accent-soft disabled:cursor-not-allowed disabled:opacity-40"
-            :disabled="page === pages"
-            :aria-label="t(UI.next)"
-            @click="goTo(page + 1)"
-          >
-            <AppIcon :path="mdiChevronRight" :size="22" />
-          </button>
-        </nav>
+        </div>
       </template>
       <p
         v-else

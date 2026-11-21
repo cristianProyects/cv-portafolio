@@ -20,7 +20,7 @@ import SectionHeading from '@/shared/ui/SectionHeading.vue'
 import { JOBS } from '../content/experience.content'
 import { UI } from '../content/profile.content'
 import { PROJECTS } from '../content/projects.content'
-import { STACK_GROUPS, TECH_NOTES, techLogoUrl, type TechName } from '../content/tech.content'
+import { STACK_GROUPS, techLogoUrl, type TechName } from '../content/tech.content'
 import { countTechUsage, resolveTitle, techUsage } from '../utils/project-filters'
 import CompanyMark from './CompanyMark.vue'
 
@@ -70,7 +70,7 @@ function hideBrokenLogo(event: Event) {
           v-for="group in STACK_GROUPS"
           :key="group.id"
           data-reveal
-          class="rounded-[var(--radius-card)] bg-white p-6 shadow-[var(--shadow-card)] ring-1 ring-border md:p-7"
+          class="rounded-[var(--radius-card)] bg-white p-5 shadow-[var(--shadow-card)] ring-1 ring-border md:p-7"
         >
           <header class="mb-5 flex items-center gap-3">
             <span class="grid size-11 place-items-center rounded-2xl bg-accent-soft text-brand">
@@ -82,12 +82,12 @@ function hideBrokenLogo(event: Event) {
             </span>
           </header>
 
-          <ul class="flex flex-wrap gap-2.5">
+          <ul class="flex flex-wrap gap-2 sm:gap-2.5">
             <li v-for="tech in group.items" :key="tech">
               <component
                 :is="usedSomewhere(tech) ? 'button' : 'span'"
                 :type="usedSomewhere(tech) ? 'button' : undefined"
-                class="relative inline-flex items-center gap-2 rounded-2xl py-2 pr-3 pl-2 text-sm font-semibold ring-1 transition-[background-color,box-shadow,translate]"
+                class="relative inline-flex items-center gap-1.5 rounded-xl py-1.5 pr-2.5 pl-1.5 text-[0.8125rem] font-semibold sm:gap-2 sm:rounded-2xl sm:py-2 sm:pr-3 sm:pl-2 sm:text-sm ring-1 transition-[background-color,box-shadow,translate]"
                 :class="[
                   inspected === tech
                     ? 'bg-brand text-white ring-brand'
@@ -101,7 +101,7 @@ function hideBrokenLogo(event: Event) {
                 "
                 @click="usedSomewhere(tech) && toggle(tech)"
               >
-                <span class="grid size-7 place-items-center rounded-lg bg-white">
+                <span class="grid size-6 place-items-center rounded-lg bg-white sm:size-7">
                   <img
                     v-if="techLogoUrl(tech)"
                     :src="techLogoUrl(tech)!"
@@ -115,11 +115,6 @@ function hideBrokenLogo(event: Event) {
                   <AppIcon v-else :path="mdiCodeTags" :size="16" class="text-brand" />
                 </span>
                 {{ tech }}
-                <span
-                  v-if="TECH_NOTES[tech]"
-                  class="rounded-full bg-white px-2 py-0.5 text-xs font-medium text-ink-muted ring-1 ring-border"
-                  >{{ t(TECH_NOTES[tech]!) }}</span
-                >
               </component>
             </li>
           </ul>
